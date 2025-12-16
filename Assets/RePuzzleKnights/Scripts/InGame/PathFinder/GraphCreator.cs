@@ -79,6 +79,10 @@ namespace RePuzzleKnights.Scripts.InGame.PathFinder
             graphBuilt = true;
         }
 
+        /// <summary>
+        /// Establishes edges between blocks in the graph based on their spatial proximity.
+        /// Only blocks that are within a specified unit distance (squared) are connected.
+        /// </summary>
         private void SetupEdges()
         {
             if (graph == null)

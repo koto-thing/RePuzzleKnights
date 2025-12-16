@@ -1,4 +1,5 @@
-﻿using RePuzzleKnights.Scripts.InGame.PathFinder;
+﻿using RePuzzleKnights.Scripts.InGame.Enemies;
+using RePuzzleKnights.Scripts.InGame.PathFinder;
 using VContainer;
 using VContainer.Unity;
 
@@ -15,6 +16,10 @@ namespace RePuzzleKnights.Scripts.InGame
             builder.RegisterEntryPoint<PathFinderController>();
             builder.RegisterComponentInHierarchy<PathFinderView>();
             builder.RegisterComponentInHierarchy<GraphCreator>();
+            
+            // 敵関連
+            builder.Register<EnemyFactory>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<EnemySpawner>();
         }
     }
 }
