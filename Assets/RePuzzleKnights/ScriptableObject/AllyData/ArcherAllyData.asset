@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85fa2a5a8963456d83782b9eedcff5e1, type: 3}
+  m_Name: ArcherAllyData
+  m_EditorClassIdentifier: 
+  AllyName: ArcherAllyData
+  AllyType: 1
+  PrefabRef:
+    m_AssetGUID: 47eae8e2123c91f4f8cdb73a56d79391
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 1
+  AttackPower: 10
+  AttackRange: 3
+  AttackInterval: 1
+  BlockCount: 1
+  RangeType: 0
+  Priority: 1
+  SplashRadius: 1.5
+  CanAttackFlying: 0

@@ -21,6 +21,36 @@ MonoBehaviour:
     m_SerializedLabels:
     - Prefab
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47eae8e2123c91f4f8cdb73a56d79391
+    m_Address: Ally/Archer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2fdf5db962bbfb4fb4407f421a86b92
+    m_Address: Ally/Assasin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a77156c077a885c47ad7e7668b2b0c0d
+    m_Address: Ally/Maze
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d765593a407d59d4f9f6a688b8e10a42
+    m_Address: Ally/Shield
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f3ca9a1999a55c6448eb0a714d83f324
+    m_Address: Ally/Sword
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 53382b1a598399340ae6f00faa05a7b2, type: 2}
   m_SchemaSet:

@@ -12,11 +12,11 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         [SerializeField] private List<EnemyWaveSO> waves;
         [SerializeField] private Transform spawnPoint;
 
-        private EnemyFactory enemyFactory;
+        private IEnemyFactoryService enemyFactory;
         private int currentWaveIndex = 0;
 
         [Inject]
-        public void Construct(EnemyFactory enemyFactory)
+        public void Construct(IEnemyFactoryService enemyFactory)
         {
             this.enemyFactory = enemyFactory;
         }
@@ -68,10 +68,15 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
             for (int i = 0; i < entry.Count; i++)
             {
                 Vector3 startPos = spawnPoint != null ? spawnPoint.position + new Vector3(0.0f, 0.5f, 0.0f) : Vector3.zero;
+                
                 if (entry.EnemyPrefabRef != null && entry.EnemyPrefabRef.RuntimeKeyIsValid())
-                    await enemyFactory.CreateAsync(entry.EnemyPrefabRef, entry.EnemyDataSO, startPos);
+                {
+                    await enemyFactory.CreateEnemyAsync(entry.EnemyPrefabRef, entry.EnemyDataSO, startPos);
+                }
                 else
+                {
                     Debug.LogWarning("Enemy Prefab Reference is missing or invalid.");
+                }
 
                 if (i < entry.Count - 1)
                     await UniTask.Delay(TimeSpan.FromSeconds(entry.Interval), cancellationToken: token);

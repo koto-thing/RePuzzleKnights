@@ -1,15 +1,56 @@
 ﻿using System;
 using DG.Tweening;
+using RePuzzleKnights.Scripts.InGame.Enemies.Interface;
 using UnityEngine;
 
 namespace RePuzzleKnights.Scripts.InGame.Enemies.BugEnemy
 {
-    public class BugEnemyView : MonoBehaviour
+    public class BugEnemyView : MonoBehaviour, IEnemyEntity
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private float scaleMultiplier = 1.3f;
 
         private Sequence moveSequence;
+        private IEnemyEntity controller;
+        
+        public bool IsFlying => controller?.IsFlying ?? false;
+        public bool IsDead => controller?.IsDead ?? false;
+        public Vector3 Position => transform.position;
+        public float DistanceToGoal => controller?.DistanceToGoal ?? float.MaxValue;
+        
+        public void SetController(IEnemyEntity enemyController)
+        {
+            controller = enemyController;
+        }
+        
+        public void OnBlocked(MonoBehaviour blocker)
+        {
+            controller?.OnBlocked(blocker);
+        }
+        
+        public void OnReleased()
+        {
+            controller?.OnReleased();
+        }
+        
+        public void TakeDamage(float damage)
+        {
+            controller?.TakeDamage(damage);
+        }
+
+        public void LateUpdate()
+        {
+            UpdateSpriteRotation();
+        }
+
+        /// <summary>
+        /// 画像をカメラ方向に向ける
+        /// </summary>
+        private void UpdateSpriteRotation()
+        {
+            if (Camera.main != null && spriteRenderer != null)
+                spriteRenderer.transform.rotation = Camera.main.transform.rotation;
+        }
 
         /// <summary>
         /// Moves the bug enemy to the specified target position at a given speed, with optional behavior on completion.
@@ -32,6 +73,22 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies.BugEnemy
                     .Append(spriteRenderer.transform.DOScaleX(0.1f, duration / 2).SetEase(Ease.InOutSine))
                 )
                 .OnComplete(() => onComplete?.Invoke());
+        }
+        
+        public void PauseMove()
+        {
+            moveSequence?.Pause();
+        }
+
+        public void ResumeMove()
+        {
+            moveSequence?.Play();
+        }
+
+        public void DestroyActor()
+        {
+            moveSequence?.Kill();
+            Destroy(gameObject);
         }
     }
 }

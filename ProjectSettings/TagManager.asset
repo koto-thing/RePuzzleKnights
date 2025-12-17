@@ -6,7 +6,8 @@ TagManager:
   tags:
   - START_BLOCK
   - GOAL_BLOCK
-  - NORMAL_BLOCK
+  - HIGHGROUND_BLOCK
+  - GROUND_BLOCK
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Ground
+  - HighGround
   - 
   - 
   - 

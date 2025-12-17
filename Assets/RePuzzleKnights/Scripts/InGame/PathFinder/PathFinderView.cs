@@ -1,77 +1,146 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+
+// 追加: Handlesを使用するために必要
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace RePuzzleKnights.Scripts.InGame.PathFinder
 {
     public class PathFinderView : MonoBehaviour
     {
-        [Header("Gizmos Settings")]
+        [Header("Graph Gizmos Settings")]
         [SerializeField] private Color nodeColor = Color.yellow;
         [SerializeField] private Color edgeColor = Color.cyan;
         [SerializeField] private float nodeSphereRadius = 0.12f;
+        
+        [Header("Path Gizmos Settings")]
+        [SerializeField] private Color startNodeColor = Color.green;
+        [SerializeField] private Color goalNodeColor = Color.red;
+        [SerializeField] private Color resultPathColor = Color.magenta;
+        [SerializeField] private bool showPathLine = true;
+        
+        [SerializeField, Range(1f, 20f)] private float pathThickness = 5.0f;
 
-        private GraphCreator graphCreator;
+        [SerializeField] private GraphCreator graphCreator;
 
-        public PathFinderView(GraphCreator graphCreator)
+        private List<string> currentPath;
+
+        private void Awake()
         {
-            this.graphCreator = graphCreator;
+            if (graphCreator == null)
+                graphCreator = GetComponent<GraphCreator>();
+        }
+
+        public void SetCalculatedPath(List<string> path)
+        {
+            this.currentPath = path;
+        }
+
+        public void OnDrawGizmos()
+        {
+            if (graphCreator == null) return;
+            var graph = graphCreator.CreatedGraph;
+            if (graph == null) return;
+            
+            DrawGraphStructure(graph);
+            
+            if (showPathLine && currentPath != null && currentPath.Count > 1)
+            {
+#if UNITY_EDITOR
+                DrawThickPath(graph);
+#else
+                Gizmos.color = resultPathColor;
+                for (int i = 0; i < currentPath.Count - 1; i++)
+                {
+                    var p1 = graph.GetBlock(currentPath[i]).Position + Vector3.up * 0.2f;
+                    var p2 = graph.GetBlock(currentPath[i+1]).Position + Vector3.up * 0.2f;
+                    Gizmos.DrawLine(p1, p2);
+                }
+#endif
+            }
         }
 
         /// <summary>
-        /// 計算した経路をGizmosで表示する
+        /// Draws the structure of the graph during the Gizmos drawing phase.
         /// </summary>
-        public void OnDrawGizmos()
+        /// <param name="graph">The graph whose structure will be visualized.</param>
+        private void DrawGraphStructure(Graph graph)
         {
-            // GraphCreator コンポーネントを取得
-            if (graphCreator == null)
-                return;
-
-            // 作成されたグラフを取得
-            var graph = graphCreator.CreatedGraph;
-            if (graph == null)
-                return;
-
-            // adjacencyList は Graph の private フィールドなのでリフレクションで取得する
             var adjacencyField = typeof(Graph).GetField("adjacencyList", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (adjacencyField == null)
-                return;
+            if (adjacencyField == null) return;
+            var adjacency = adjacencyField.GetValue(graph) as Dictionary<string, List<Edge>>;
+            if (adjacency == null) return;
 
-            // adjacencyList を取得
-            var adjacency = adjacencyField.GetValue(graph) as System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Edge>>;
-            if (adjacency == null)
-                return;
+            var drawnEdges = new HashSet<string>();
 
-            // 描画済みのエッジを管理するセット
-            var drawn = new System.Collections.Generic.HashSet<string>();
-
-            // グラフのノードとエッジを描画
             foreach (var kvp in adjacency)
             {
                 var blockName = kvp.Key;
                 var block = graph.GetBlock(blockName);
-                if (block == null)
-                    continue;
+                if (block == null) continue;
 
-                // ノードを描画
-                Gizmos.color = nodeColor;
-                Gizmos.DrawSphere(block.Position, nodeSphereRadius);
+                if (graphCreator.StartBlockNames.Contains(blockName))
+                {
+                    Gizmos.color = startNodeColor;
+                    Gizmos.DrawSphere(block.Position, nodeSphereRadius * 1.5f);
+                }
+                else if (graphCreator.GoalBlockNames.Contains(blockName))
+                {
+                    Gizmos.color = goalNodeColor;
+                    Gizmos.DrawSphere(block.Position, nodeSphereRadius * 1.5f);
+                }
+                else
+                {
+                    Gizmos.color = nodeColor;
+                    Gizmos.DrawSphere(block.Position, nodeSphereRadius);
+                }
 
                 foreach (var edge in kvp.Value)
                 {
                     var to = edge.To;
                     string key = string.Compare(blockName, to, System.StringComparison.Ordinal) < 0 ? blockName + "|" + to : to + "|" + blockName;
-                    if (drawn.Contains(key))
-                        continue;
+                    if (drawnEdges.Contains(key)) continue;
 
                     var toBlock = graph.GetBlock(to);
-                    if (toBlock == null)
-                        continue;
+                    if (toBlock == null) continue;
 
                     Gizmos.color = edgeColor;
                     Gizmos.DrawLine(block.Position, toBlock.Position);
-                    drawn.Add(key);
+                    drawnEdges.Add(key);
                 }
             }
         }
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// 経路を太い線で描画する
+        /// </summary>
+        /// <param name="graph"></param>
+        private void DrawThickPath(Graph graph)
+        {
+            Handles.color = resultPathColor;
+            Vector3 offset = Vector3.up * 0.2f;
+
+            for (int i = 0; i < currentPath.Count - 1; i++)
+            {
+                var currentName = currentPath[i];
+                var nextName = currentPath[i + 1];
+
+                var currentBlock = graph.GetBlock(currentName);
+                var nextBlock = graph.GetBlock(nextName);
+
+                if (currentBlock != null && nextBlock != null)
+                {
+                    Vector3 p1 = currentBlock.Position + offset;
+                    Vector3 p2 = nextBlock.Position + offset;
+                    
+                    Handles.DrawAAPolyLine(pathThickness, p1, p2);
+                }
+            }
+        }
+#endif
     }
 }

@@ -15,8 +15,8 @@ namespace RePuzzleKnights.Scripts.InGame.PathFinder
         private bool graphBuilt;
 
         public Graph CreatedGraph => graph;
-        public string StartBlockName { get; private set; }
-        public string GoalBlockName { get; private set; }
+        public List<string> StartBlockNames { get; private set; } = new List<string>();
+        public List<string> GoalBlockNames { get; private set; } = new List<string>();
 
         private void Awake()
         {
@@ -32,6 +32,8 @@ namespace RePuzzleKnights.Scripts.InGame.PathFinder
                 return;
 
             graph = new Graph();
+            StartBlockNames.Clear();
+            GoalBlockNames.Clear();
 
             if (blockGameObjects == null || blockGameObjects.Count == 0)
             {
@@ -55,16 +57,20 @@ namespace RePuzzleKnights.Scripts.InGame.PathFinder
                 {
                     case "START_BLOCK":
                         block = new StartBlock(name, position);
-                        StartBlockName = name;
+                        StartBlockNames.Add(name);
                         break;
 
                     case "GOAL_BLOCK":
                         block = new GoalBlock(name, position);
-                        GoalBlockName = name;
+                        GoalBlockNames.Add(name);
                         break;
 
-                    case "NORMAL_BLOCK":
-                        block = new NormalBlock(name, position);
+                    case "GROUND_BLOCK":
+                        block = new GroundBlock(name, position);
+                        break;
+                    
+                    case "HIGHGROUND_BLOCK":
+                        block = new HighGroundBlock(name, position);
                         break;
 
                     default:
@@ -77,6 +83,35 @@ namespace RePuzzleKnights.Scripts.InGame.PathFinder
 
             SetupEdges();
             graphBuilt = true;
+        }
+
+        /// <summary>
+        /// 指定した座標に最も近いブロックの名前を取得する
+        /// </summary>
+        /// <param name="position">指定座標</param>
+        /// <returns>最も近いブロックの名前</returns>
+        public string GetNearestBlockName(Vector3 position)
+        {
+            if (graph == null)
+                return null;
+
+            string nearestBlockName = null;
+            float minDistanceSqr = float.MaxValue;
+
+            foreach (var blockObj in blockGameObjects)
+            {
+                if (blockObj == null)
+                    continue;
+
+                float distSqr = (blockObj.transform.position - position).sqrMagnitude;
+                if (distSqr < minDistanceSqr)
+                {
+                    minDistanceSqr = distSqr;
+                    nearestBlockName = blockObj.name;
+                }
+            }
+
+            return nearestBlockName;
         }
 
         /// <summary>
@@ -101,6 +136,9 @@ namespace RePuzzleKnights.Scripts.InGame.PathFinder
             if (blocksInGraph.Count < 2)
                 return;
 
+            // 許容範囲を設定
+            float threshold = 0.1f;
+            
             for (int i = 0; i < blocksInGraph.Count; i++)
             {
                 var blockA = blocksInGraph[i];
@@ -108,8 +146,10 @@ namespace RePuzzleKnights.Scripts.InGame.PathFinder
                 {
                     var blockB = blocksInGraph[j];
                     float distanceSquared = (blockA.Position - blockB.Position).sqrMagnitude;
-                    if (Mathf.Approximately(distanceSquared, 1.0f * 1.0f))
+                    if (Mathf.Abs(distanceSquared - 1.0f) < threshold)
+                    {
                         graph.AddEdge(blockA.Name, blockB.Name, 1);
+                    }
                 }
             }
         }

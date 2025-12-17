@@ -128,6 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4516901797204451874}
   - component: {fileID: 876279765929829415}
+  - component: {fileID: 1742917842889962762}
   m_Layer: 0
   m_Name: BugEnemy
   m_TagString: Untagged
@@ -164,6 +165,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67a3e01a2df4e1f838a918ebb9816b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bugEnemyObj: {fileID: 3789921372835544140}
   spriteRenderer: {fileID: 1161422251735666395}
   scaleMultiplier: 1.2
+--- !u!135 &1742917842889962762
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3789921372835544140}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.5, z: 0}
