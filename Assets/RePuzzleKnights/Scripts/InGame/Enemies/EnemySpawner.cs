@@ -7,6 +7,10 @@ using VContainer;
 
 namespace RePuzzleKnights.Scripts.InGame.Enemies
 {
+    /// <summary>
+    /// 敵のウェーブスポーンを管理するクラス
+    /// 指定されたウェーブデータに基づいて、複数の敵を順次生成する
+    /// </summary>
     public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private List<EnemyWaveSO> waves;
@@ -15,6 +19,9 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         private IEnemyFactoryService enemyFactory;
         private int currentWaveIndex = 0;
 
+        /// <summary>
+        /// 依存性注入
+        /// </summary>
         [Inject]
         public void Construct(IEnemyFactoryService enemyFactory)
         {
@@ -27,10 +34,8 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         }
 
         /// <summary>
-        /// Initiates the spawning of enemies for the current wave and progresses through all defined waves.
+        /// ウェーブを開始し、すべてのウェーブを順次実行
         /// </summary>
-        /// <param name="token">A CancellationToken used to monitor for cancellation requests during the enemy spawning process.</param>
-        /// <returns>A UniTask representing the asynchronous wave spawning operation.</returns>
         private async UniTask StartWave(CancellationToken token)
         {
             if (currentWaveIndex >= waves.Count)
@@ -55,11 +60,8 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         }
 
         /// <summary>
-        /// Processes a single spawn entry by spawning the specified number of enemies at defined intervals.
+        /// 単一のスポーンエントリを処理し、指定された間隔で敵を生成
         /// </summary>
-        /// <param name="entry">The spawn entry that defines the enemy type, quantity, spawn interval, and initial delay.</param>
-        /// <param name="token">A CancellationToken used to monitor for cancellation requests during the spawning process.</param>
-        /// <returns>A UniTask representing the asynchronous spawn entry operation.</returns>
         private async UniTask ProcessSpawnEntry(EnemySpawnEntry entry, CancellationToken token)
         {
             if (entry.InitialDelay > 0)

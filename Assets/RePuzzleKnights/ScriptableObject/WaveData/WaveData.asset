@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WaveData
   m_EditorClassIdentifier: RePuzzleKnights.InGame:RePuzzleKnights.Scripts.InGame.Enemies:EnemyWaveSO
   SpawnEntries:
-  - EnemyDataSO: {fileID: 11400000, guid: e7e71ea67afc2de4e93de034c6754f94, type: 2}
+  - EnemyDataSO: {fileID: 11400000, guid: b81116ca691149d488dc3e8e9fe7f2d5, type: 2}
     EnemyPrefabRef:
       m_AssetGUID: 213940b29f8fbed499ad3d73d0c06172
       m_SubObjectName: 
@@ -23,7 +23,7 @@ MonoBehaviour:
     Count: 1
     Interval: 0
     InitialDelay: 0
-  - EnemyDataSO: {fileID: 11400000, guid: 51a9ae242aa2a1144b32df02f5f72cb9, type: 2}
+  - EnemyDataSO: {fileID: 11400000, guid: b81116ca691149d488dc3e8e9fe7f2d5, type: 2}
     EnemyPrefabRef:
       m_AssetGUID: 213940b29f8fbed499ad3d73d0c06172
       m_SubObjectName: 
