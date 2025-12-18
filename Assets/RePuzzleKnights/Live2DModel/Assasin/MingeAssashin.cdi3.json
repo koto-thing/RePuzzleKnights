@@ -1,0 +1,224 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "PHead",
+			"GroupId": "",
+			"Name": "あたま"
+		},
+		{
+			"Id": "PSpine",
+			"GroupId": "",
+			"Name": "せぼね"
+		},
+		{
+			"Id": "PShoulderR",
+			"GroupId": "",
+			"Name": "かたR"
+		},
+		{
+			"Id": "PArmR",
+			"GroupId": "",
+			"Name": "うでR"
+		},
+		{
+			"Id": "PHandR",
+			"GroupId": "",
+			"Name": "てR"
+		},
+		{
+			"Id": "PShoulderL",
+			"GroupId": "",
+			"Name": "かたL"
+		},
+		{
+			"Id": "PArmL",
+			"GroupId": "",
+			"Name": "うでL"
+		},
+		{
+			"Id": "PHandL",
+			"GroupId": "",
+			"Name": "てL"
+		},
+		{
+			"Id": "PLegR",
+			"GroupId": "",
+			"Name": "あしR"
+		},
+		{
+			"Id": "PKneeR",
+			"GroupId": "",
+			"Name": "ひざR"
+		},
+		{
+			"Id": "PFootR",
+			"GroupId": "",
+			"Name": "かかとR"
+		},
+		{
+			"Id": "PLegL",
+			"GroupId": "",
+			"Name": "あしL"
+		},
+		{
+			"Id": "PKneeL",
+			"GroupId": "",
+			"Name": "ひざL"
+		},
+		{
+			"Id": "PFootL",
+			"GroupId": "",
+			"Name": "かかとL"
+		},
+		{
+			"Id": "Blink",
+			"GroupId": "",
+			"Name": "まばたき"
+		},
+		{
+			"Id": "EyeblowR",
+			"GroupId": "",
+			"Name": "まゆR"
+		},
+		{
+			"Id": "EyeblowL",
+			"GroupId": "",
+			"Name": "まゆL"
+		},
+		{
+			"Id": "Eye",
+			"GroupId": "",
+			"Name": "目"
+		},
+		{
+			"Id": "Highlight",
+			"GroupId": "",
+			"Name": "ハイライト"
+		},
+		{
+			"Id": "SwitchHandR",
+			"GroupId": "",
+			"Name": "てR差分"
+		},
+		{
+			"Id": "BradeR",
+			"GroupId": "",
+			"Name": "刃変化R"
+		},
+		{
+			"Id": "WeaponEffectR",
+			"GroupId": "",
+			"Name": "Rエフェクト"
+		},
+		{
+			"Id": "SwitchHandL",
+			"GroupId": "",
+			"Name": "てL差分"
+		},
+		{
+			"Id": "DepthHandL",
+			"GroupId": "",
+			"Name": "手L深さ"
+		},
+		{
+			"Id": "BradeL",
+			"GroupId": "",
+			"Name": "刃変化L"
+		},
+		{
+			"Id": "WeaponEffectL",
+			"GroupId": "",
+			"Name": "Lエフェクト"
+		},
+		{
+			"Id": "Smile",
+			"GroupId": "",
+			"Name": "Smile"
+		},
+		{
+			"Id": "HairMesh",
+			"GroupId": "",
+			"Name": "赤髪"
+		},
+		{
+			"Id": "Rage",
+			"GroupId": "",
+			"Name": "Rage"
+		},
+		{
+			"Id": "Breath",
+			"GroupId": "",
+			"Name": "呼吸"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part2",
+			"Name": "FrameEffect.psd"
+		},
+		{
+			"Id": "Part",
+			"Name": "mater.psd"
+		},
+		{
+			"Id": "Part21",
+			"Name": "Assashin PSD.psd"
+		},
+		{
+			"Id": "ArmL",
+			"Name": "ArmL"
+		},
+		{
+			"Id": "ArmR",
+			"Name": "ArmR"
+		},
+		{
+			"Id": "Part12",
+			"Name": "フォルダー23"
+		},
+		{
+			"Id": "head7",
+			"Name": "head"
+		},
+		{
+			"Id": "Part15",
+			"Name": "フォルダー2"
+		},
+		{
+			"Id": "Part13",
+			"Name": "顔パーツ"
+		},
+		{
+			"Id": "ArmL4",
+			"Name": "ArmL"
+		},
+		{
+			"Id": "ArmR4",
+			"Name": "ArmR"
+		},
+		{
+			"Id": "LegL4",
+			"Name": "LegL"
+		},
+		{
+			"Id": "LegR4",
+			"Name": "LegR"
+		},
+		{
+			"Id": "eye2",
+			"Name": "eye"
+		},
+		{
+			"Id": "Part14",
+			"Name": "フォルダー5"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"EyeblowR",
+			"EyeblowL"
+		]
+	]
+}

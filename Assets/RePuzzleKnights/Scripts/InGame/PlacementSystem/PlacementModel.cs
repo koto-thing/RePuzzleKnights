@@ -56,7 +56,7 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
                 GameObject hitObj = hitInfo.collider.gameObject;
                 bool isValid = CheckTagValidity(hitObj);
 
-                Vector3 finalPosition = hitInfo.point;
+                Vector3 finalPosition = hitInfo.point + new Vector3(0.0f, 0.5f, 0.0f);
                 if (isValid)
                 {
                     finalPosition.x = hitObj.transform.position.x;

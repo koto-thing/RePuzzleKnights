@@ -8,6 +8,14 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         
         public Vector3 FacingDirection { get; private set; } = Vector3.forward;
 
+        private void LateUpdate()
+        {
+            if (Camera.main == null)
+                return;
+            
+            transform.rotation = Camera.main.transform.rotation;
+        }
+
         public void LookAtSnap(Vector3 targetPoint)
         {
             Vector3 diff = targetPoint - modelTransform.position;
