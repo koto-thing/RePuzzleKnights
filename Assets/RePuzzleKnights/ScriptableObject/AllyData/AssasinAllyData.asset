@@ -21,14 +21,19 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   MaxHp: 100
-  AttackPower: 10
+  AttackPower: 25
   AttackRange: 3
-  AttackInterval: 1
+  AttackInterval: 2
   BlockCount: 1
   AttackRangeGrids:
   - {x: 0, y: 1}
+  - {x: 1, y: 1}
+  - {x: -1, y: 1}
+  - {x: 0, y: 2}
+  - {x: 1, y: 2}
+  - {x: -1, y: 2}
   SearchRadius: 5
-  RangeType: 0
+  RangeType: 2
   Priority: 0
-  SplashRadius: 1.5
+  SplashRadius: 3
   CanAttackFlying: 0

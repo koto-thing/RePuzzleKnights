@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: a865f713fbc5489fb6ffd8dbe7194e7d, type: 3}
   m_Name: WaveData
   m_EditorClassIdentifier: RePuzzleKnights.InGame:RePuzzleKnights.Scripts.InGame.Enemies:EnemyWaveSO
   SpawnEntries:
@@ -20,16 +20,26 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Count: 1
-    Interval: 0
-    InitialDelay: 0
+    Count: 5
+    Interval: 3
+    InitialDelay: 5
   - EnemyDataSO: {fileID: 11400000, guid: b81116ca691149d488dc3e8e9fe7f2d5, type: 2}
     EnemyPrefabRef:
       m_AssetGUID: 213940b29f8fbed499ad3d73d0c06172
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
-      m_EditorAssetChanged: 1
+      m_EditorAssetChanged: 0
     Count: 5
-    Interval: 1
-    InitialDelay: 5
+    Interval: 3
+    InitialDelay: 10
+  - EnemyDataSO: {fileID: 11400000, guid: b81116ca691149d488dc3e8e9fe7f2d5, type: 2}
+    EnemyPrefabRef:
+      m_AssetGUID: 213940b29f8fbed499ad3d73d0c06172
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    Count: 5
+    Interval: 3
+    InitialDelay: 10

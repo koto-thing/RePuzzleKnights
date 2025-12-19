@@ -1,4 +1,5 @@
 ﻿using R3;
+using RePuzzleKnights.Scripts.InGame.Allies;
 using RePuzzleKnights.Scripts.InGame.Allies.Enum;
 using RePuzzleKnights.Scripts.InGame.Allies.SO;
 using RePuzzleKnights.Scripts.InGame.PlacementSystem.Enum;
@@ -12,7 +13,7 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
     /// </summary>
     public class PlacementModel
     {
-        private readonly LayerMask placementLayerMask = LayerMask.GetMask("Default", "Ground", "HighGround");
+        private readonly LayerMask placementLayerMask = LayerMask.GetMask("Ground", "HighGround");
         private const string GroundTag = "GROUND_BLOCK";
         private const string HighGroundTag = "HIGHGROUND_BLOCK";
         
@@ -62,15 +63,18 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             if (hit)
             {
                 GameObject hitObj = hitInfo.collider.gameObject;
-                bool isValid = CheckTagValidity(hitObj);
+                bool isTagValid = CheckTagValidity(hitObj);
 
                 Vector3 finalPosition = hitInfo.point + new Vector3(0.0f, 0.5f, 0.0f);
-                if (isValid)
+                if (isTagValid)
                 {
                     finalPosition.x = hitObj.transform.position.x;
                     finalPosition.z = hitObj.transform.position.z;
                     finalPosition.y = hitInfo.collider.bounds.max.y;
                 }
+
+                bool isOccupied = IsPositionOccupied(finalPosition);
+                bool isValid = isTagValid && !isOccupied;
                 
                 UpdatePosition(finalPosition, isValid);
             }
@@ -177,6 +181,32 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             
             if (data.AllyType == AllyType.HighGround)
                 return target.CompareTag(HighGroundTag);
+
+            return false;
+        }
+
+        /// <summary>
+        /// 指定座標にすでに味方がいるかどうかを確認する
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        private bool IsPositionOccupied(Vector3 position)
+        {
+            float checkRadius = 0.3f;
+            int allyLayer = LayerMask.GetMask("Ally");
+
+            var colliders = Physics.OverlapSphere(position, checkRadius, allyLayer);
+            foreach (var col in colliders)
+            {
+                if (col.TryGetComponent<AllyEntityHolder>(out var holder))
+                {
+                    float distance = Vector3.Distance(position, col.transform.position);
+                    if (distance < 0.5f)
+                    {
+                        return true;
+                    }
+                }
+            }
 
             return false;
         }

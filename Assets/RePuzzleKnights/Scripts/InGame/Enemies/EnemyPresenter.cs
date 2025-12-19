@@ -14,6 +14,7 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         private readonly EnemyController controller;
         private readonly EnemyView view;
         private readonly BaseStatusModel baseStatusModel;
+        private readonly Action onEnemyDefeated;
         
         private readonly CompositeDisposable disposables = new();
 
@@ -24,12 +25,14 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
             EnemyModel model,
             EnemyController controller,
             EnemyView view,
-            BaseStatusModel baseStatusModel)
+            BaseStatusModel baseStatusModel,
+            Action onEnemyDefeated = null)
         {
             this.model = model;
             this.controller = controller;
             this.view = view;
             this.baseStatusModel = baseStatusModel;
+            this.onEnemyDefeated = onEnemyDefeated;
         }
 
         /// <summary>
@@ -90,8 +93,9 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
                 .Where(dead => dead)
                 .Subscribe(_ =>
                 {
-                    view.DestroyActor();
-                    Dispose();
+                    controller.OnReleased();
+
+                    HandleDeathAsync().Forget();
                 })
                 .AddTo(disposables);
 
@@ -101,6 +105,9 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
                 {
                     // 本拠地にダメージ
                     baseStatusModel.TakeDamage(1);
+                    
+                    // 敵がゴールに到達したことを通知（敵の数を減らす）
+                    onEnemyDefeated?.Invoke();
                     
                     view.DestroyActor();
                     Dispose();
@@ -117,10 +124,31 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
                 .AddTo(disposables);
         }
 
+        /// <summary>
+        /// 死亡時の非同期処理
+        /// </summary>
+        private async Cysharp.Threading.Tasks.UniTaskVoid HandleDeathAsync()
+        {
+            try
+            {
+                await view.PlayDeathEffectAsync();
+                
+                // 敵が倒されたことを通知
+                onEnemyDefeated?.Invoke();
+                
+                view.DestroyActor();
+                Dispose();
+            }
+            catch (Exception ex)
+            {
+                UnityEngine.Debug.LogError($"[EnemyPresenter] Error in death handling: {ex.Message}");
+            }
+        }
+
         public void Dispose()
         {
-            disposables.Dispose();
-            controller.Dispose();
+            disposables?.Dispose();
+            controller?.Dispose();
         }
     }
 }

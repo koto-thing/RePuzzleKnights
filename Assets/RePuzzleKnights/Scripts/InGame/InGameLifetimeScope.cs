@@ -1,4 +1,5 @@
-﻿using RePuzzleKnights.Scripts.InGame.Enemies;
+﻿using RePuzzleKnights.Scripts.Common;
+using RePuzzleKnights.Scripts.InGame.Enemies;
 using RePuzzleKnights.Scripts.InGame.BaseSystem;
 using RePuzzleKnights.Scripts.InGame.GameFlowSystem;
 using RePuzzleKnights.Scripts.InGame.PathFinder;
@@ -16,6 +17,10 @@ namespace RePuzzleKnights.Scripts.InGame
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            // 共通サービス
+            builder.Register<StageProgressService>(Lifetime.Singleton);
+            builder.Register<CurrentStageService>(Lifetime.Singleton);
+            
             // 経路探索システム
             builder.Register<AStarPathFinder>(Lifetime.Singleton);
             builder.Register<PathFinderModel>(Lifetime.Singleton);
@@ -33,7 +38,7 @@ namespace RePuzzleKnights.Scripts.InGame
             
             // 敵システム
             builder.Register<EnemyFactory>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterComponentInHierarchy<EnemySpawner>();
+            builder.RegisterComponentInHierarchy<EnemySpawner>().AsImplementedInterfaces();
             
             // 耐久値管理システム
             builder.Register<BaseStatusModel>(Lifetime.Singleton);
@@ -41,7 +46,10 @@ namespace RePuzzleKnights.Scripts.InGame
             builder.RegisterComponentInHierarchy<BaseStatusView>();
             
             // ゲームフロー管理システム
+            builder.Register<GameFlowModel>(Lifetime.Singleton);
             builder.RegisterEntryPoint<GameFlowController>();
+            builder.RegisterEntryPoint<GameResultPresenter>();
+            builder.RegisterComponentInHierarchy<GameResultView>();
         }
     }
 }

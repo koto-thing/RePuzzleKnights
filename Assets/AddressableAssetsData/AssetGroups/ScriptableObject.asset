@@ -51,6 +51,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - ScriptableObject
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dba418fbf778cd244a7746d769ebb1a4
+    m_Address: Stage0WaveData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fe9840752f583c6489206f8baa2349c7
     m_Address: StageDescriptionData/Stage1DescData
     m_ReadOnly: 0

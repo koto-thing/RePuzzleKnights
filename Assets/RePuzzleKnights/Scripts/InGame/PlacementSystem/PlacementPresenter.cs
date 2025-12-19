@@ -45,7 +45,9 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
                 .Subscribe(rot =>
                 {
                     if (view.CurrentPreviewObject != null)
-                        view.CurrentPreviewObject.transform.rotation = rot;
+                    {
+                        view.UpdatePreviewRotation(rot);
+                    }
                 })
                 .AddTo(disposables);
             

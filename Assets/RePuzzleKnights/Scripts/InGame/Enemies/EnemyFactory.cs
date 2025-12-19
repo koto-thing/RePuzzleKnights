@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using RePuzzleKnights.Scripts.InGame.BaseSystem;
 using RePuzzleKnights.Scripts.InGame.Enemies.Interface;
@@ -17,11 +18,20 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
     {
         private readonly GraphCreator graphCreator;
         private readonly BaseStatusModel baseStatusModel;
+        private Action onEnemyDefeated;
 
         public EnemyFactory(GraphCreator graphCreator, BaseStatusModel baseStatusModel)
         {
             this.graphCreator = graphCreator;
             this.baseStatusModel = baseStatusModel;
+        }
+
+        /// <summary>
+        /// 敵が倒されたときのコールバックを設定
+        /// </summary>
+        public void SetOnEnemyDefeatedCallback(Action callback)
+        {
+            onEnemyDefeated = callback;
         }
 
         /// <summary>
@@ -46,7 +56,7 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
             // MVC構造の構築
             var model = new EnemyModel(data, path);
             var controller = new EnemyController(model, instance.transform);
-            var presenter = new EnemyPresenter(model, controller, view, baseStatusModel);
+            var presenter = new EnemyPresenter(model, controller, view, baseStatusModel, onEnemyDefeated);
     
             // 初期化
             presenter.Initialize();
@@ -81,7 +91,7 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
             if (graphCreator.GoalBlockNames.Count == 0) 
                 return new List<Vector3>();
             
-            int randomIndex = Random.Range(0, graphCreator.GoalBlockNames.Count);
+            int randomIndex = UnityEngine.Random.Range(0, graphCreator.GoalBlockNames.Count);
             var goalName = graphCreator.GoalBlockNames[randomIndex];
 
             var pathFinder = new AStarPathFinder(graph);

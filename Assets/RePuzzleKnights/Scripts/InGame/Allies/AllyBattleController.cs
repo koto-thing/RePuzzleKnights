@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using R3;
 using RePuzzleKnights.Scripts.InGame.Allies.Enum;
 using RePuzzleKnights.Scripts.InGame.Allies.Interface;
@@ -21,7 +22,6 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         private readonly Transform transform;
 
         private Action<AllyDataSO> onDeathCallback;
-        
         private CompositeDisposable disposables = new();
 
         public Vector3 Position => transform.position;
@@ -147,9 +147,17 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         /// <summary>
         /// 攻撃リクエストイベントを取得
         /// </summary>
-        public Observable<IEnemyEntity> GetAttackRequestObservable()
+        public Observable<IList<IEnemyEntity>> GetAttackRequestObservable()
         {
             return model.OnAttackRequested;
+        }
+        
+        /// <summary>
+        /// 攻撃キャンセルイベントを取得
+        /// </summary>
+        public Observable<Unit> GetAttackCancelObservable()
+        {
+            return model.OnAttackCancelled;
         }
 
         /// <summary>
@@ -255,38 +263,79 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         }
 
         /// <summary>
-        /// 敵が視界に入った際の処理
-        /// </summary>
-        public void OnEnemyEntered(IEnemyEntity enemy)
-        {
-            model.AddEnemyInSight(enemy);
-        }
-
-        /// <summary>
-        /// 敵が視界から出た際の処理
-        /// </summary>
-        public void OnEnemyExited(IEnemyEntity enemy)
-        {
-            model.RemoveEnemyInSight(enemy);
-            
-            if (model.BlockedEnemies.CurrentValue.Contains(enemy))
-            {
-                enemy.OnReleased();
-                model.UnblockEnemy(enemy);
-            }
-        }
-
-        /// <summary>
         /// 攻撃を試行
         /// </summary>
         private void TryAttack()
         {
-            var target = model.GetBestTarget();
-            if (target != null)
+            List<IEnemyEntity> targets = new List<IEnemyEntity>();
+            var primaryTarget = model.GetBestTarget(transform.position);
+            
+            // 主要ターゲットが存在しない、または死亡している場合は攻撃をキャンセル
+            if (primaryTarget == null || primaryTarget.IsDead)
             {
-                model.RequestAttack(target, allyData.AttackPower);
+                model.CancelAttack();
+                return;
+            }
+
+            switch (allyData.RangeType)
+            {
+                case AttackRangeType.SINGLE_TARGET:
+                    targets.Add(primaryTarget);
+                    break;
+                
+                case AttackRangeType.SPLASH_AROUND_TARGET:
+                    targets.Add(primaryTarget);
+                    var splashEnemies = ScanSplashTargets(primaryTarget);
+                    targets.AddRange(splashEnemies);
+                    break;
+                
+                case AttackRangeType.FULL_RANGE_AREA:
+                    var allEnemies = model.GetAllTargets();
+                    if (allEnemies != null)
+                    {
+                        targets.AddRange(allEnemies);
+                    }
+                    break;
+            }
+
+            // すべてのターゲットが死亡している場合は攻撃をキャンセル
+            if (targets.Count == 0 || targets.All(t => t == null || t.IsDead))
+            {
+                model.CancelAttack();
+                return;
+            }
+
+            if (targets.Count > 0)
+            {
+                model.RequestAttack(targets, allyData.AttackPower);
                 model.ResetAttackTimer();
             }
+        }
+
+        private List<IEnemyEntity> ScanSplashTargets(IEnemyEntity primaryTarget)
+        {
+            var splashTargets = new List<IEnemyEntity>();
+
+            Vector3 center = primaryTarget.Position;
+            float radius = allyData.SplashRadius;
+
+            var colliders = Physics.OverlapSphere(center, radius, model.EnemyLayerMask);
+            foreach (var col in colliders)
+            {
+                if (col.TryGetComponent<EnemyEntityHolder>(out var holder))
+                {
+                    var enemy = holder.Entity;
+                    if (enemy != null && !enemy.IsDead && enemy != primaryTarget)
+                    {
+                        if (enemy.IsFlying && !allyData.CanAttackFlying)
+                            continue;
+                        
+                        splashTargets.Add(enemy);
+                    }
+                }
+            }
+
+            return splashTargets;
         }
 
         public void Dispose()

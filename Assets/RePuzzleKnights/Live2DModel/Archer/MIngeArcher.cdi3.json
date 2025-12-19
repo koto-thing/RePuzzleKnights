@@ -1,0 +1,214 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamAngleX",
+			"GroupId": "",
+			"Name": "あたま"
+		},
+		{
+			"Id": "ParamAngleY",
+			"GroupId": "",
+			"Name": "せぼね"
+		},
+		{
+			"Id": "ParamAngleZ",
+			"GroupId": "",
+			"Name": "かたR"
+		},
+		{
+			"Id": "ParamEyeLOpen",
+			"GroupId": "",
+			"Name": "うでR"
+		},
+		{
+			"Id": "ParamEyeLSmile",
+			"GroupId": "",
+			"Name": "てR"
+		},
+		{
+			"Id": "ParamEyeROpen",
+			"GroupId": "",
+			"Name": "かたL"
+		},
+		{
+			"Id": "ParamEyeRSmile",
+			"GroupId": "",
+			"Name": "うでL"
+		},
+		{
+			"Id": "ParamEyeBallX",
+			"GroupId": "",
+			"Name": "てL"
+		},
+		{
+			"Id": "ParamEyeBallY",
+			"GroupId": "",
+			"Name": "あしR"
+		},
+		{
+			"Id": "ParamBrowLY",
+			"GroupId": "",
+			"Name": "ひざR"
+		},
+		{
+			"Id": "ParamBrowRY",
+			"GroupId": "",
+			"Name": "かかとR"
+		},
+		{
+			"Id": "ParamBrowLX",
+			"GroupId": "",
+			"Name": "あしL"
+		},
+		{
+			"Id": "ParamBrowRX",
+			"GroupId": "",
+			"Name": "ひざL"
+		},
+		{
+			"Id": "ParamBrowLAngle",
+			"GroupId": "",
+			"Name": "かかとL"
+		},
+		{
+			"Id": "ParamBrowRAngle",
+			"GroupId": "",
+			"Name": "ひらひら"
+		},
+		{
+			"Id": "ParamBrowLForm",
+			"GroupId": "",
+			"Name": "矢　長さ"
+		},
+		{
+			"Id": "ParamBrowRForm",
+			"GroupId": "",
+			"Name": "矢　サイズ"
+		},
+		{
+			"Id": "ParamMouthForm",
+			"GroupId": "",
+			"Name": "呼吸"
+		},
+		{
+			"Id": "ParamMouthOpenY",
+			"GroupId": "",
+			"Name": "糸"
+		},
+		{
+			"Id": "ParamCheek",
+			"GroupId": "",
+			"Name": "狙って....!"
+		},
+		{
+			"Id": "ParamBodyAngleX",
+			"GroupId": "",
+			"Name": "眉"
+		},
+		{
+			"Id": "ParamBodyAngleY",
+			"GroupId": "",
+			"Name": "めまわり"
+		},
+		{
+			"Id": "ParamBodyAngleZ",
+			"GroupId": "",
+			"Name": "手差分"
+		},
+		{
+			"Id": "ParamBreath",
+			"GroupId": "",
+			"Name": "矢の有無"
+		},
+		{
+			"Id": "ParamHairSide",
+			"GroupId": "",
+			"Name": "ハイライトoff"
+		},
+		{
+			"Id": "ParamHairBack",
+			"GroupId": "",
+			"Name": "髪揺れ　後"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part4",
+			"Name": "Archerlive2DPSD2.psd"
+		},
+		{
+			"Id": "Part",
+			"Name": "フォルダー4"
+		},
+		{
+			"Id": "bone",
+			"Name": "bone"
+		},
+		{
+			"Id": "Part3",
+			"Name": "フォルダー1"
+		},
+		{
+			"Id": "Part2",
+			"Name": "フォルダー3"
+		},
+		{
+			"Id": "LegL",
+			"Name": "LegL"
+		},
+		{
+			"Id": "LegR",
+			"Name": "LegR"
+		},
+		{
+			"Id": "ArmR",
+			"Name": "ArmR"
+		},
+		{
+			"Id": "ArmL",
+			"Name": "ArmL"
+		},
+		{
+			"Id": "head",
+			"Name": "head"
+		},
+		{
+			"Id": "head3",
+			"Name": "head"
+		},
+		{
+			"Id": "ArmR2",
+			"Name": "ArmR"
+		},
+		{
+			"Id": "LegL2",
+			"Name": "LegL"
+		},
+		{
+			"Id": "LegR2",
+			"Name": "LegR"
+		},
+		{
+			"Id": "ArmL2",
+			"Name": "ArmL"
+		},
+		{
+			"Id": "EyeR",
+			"Name": "EyeR"
+		},
+		{
+			"Id": "EyeL",
+			"Name": "EyeL"
+		},
+		{
+			"Id": "EyeR2",
+			"Name": "EyeR"
+		},
+		{
+			"Id": "EyeL2",
+			"Name": "EyeL"
+		}
+	]
+}

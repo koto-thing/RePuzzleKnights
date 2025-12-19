@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09180bb688e4468ad20cc7288419934, type: 3}
   m_Name: Stage3DescData
   m_EditorClassIdentifier: 
+  stageNumber: 3
   stageName: STAGE 3
   stageDescription: STAGE 3
   stageImage: {fileID: 0}

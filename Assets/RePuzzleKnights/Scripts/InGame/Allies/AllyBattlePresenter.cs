@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Data;
+using Cysharp.Threading.Tasks;
 using R3;
 using RePuzzleKnights.Scripts.InGame.Allies.SO;
-using RePuzzleKnights.Scripts.InGame.Enemies;
-using RePuzzleKnights.Scripts.InGame.Enemies.Interface;
 using UnityEngine;
 
 namespace RePuzzleKnights.Scripts.InGame.Allies
@@ -17,6 +15,7 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         [SerializeField] private AllyView view;
         [SerializeField] private AllyDataSO allyData;
         [SerializeField] private AllyEntityHolder entityHolder;
+        [SerializeField] private AllyAnimationController animController;
 
         private AllyBattleController controller;
         private AllyBattleModel model;
@@ -42,6 +41,15 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
             
             if (entityHolder != null)
                 entityHolder.Initialize(controller);
+            
+            if (animController == null)
+                animController = GetComponentInChildren<AllyAnimationController>();
+
+            // アニメーション速度を攻撃間隔に合わせて設定
+            if (animController != null)
+            {
+                animController.SetAttackSpeed(allyData.AttackInterval);
+            }
 
             // イベント購読
             SubscribeEvents();
@@ -54,22 +62,51 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         {
             // 攻撃リクエスト時にViewを更新
             controller.GetAttackRequestObservable()
-                .Subscribe(target =>
+                .Subscribe(targets =>
                 {
-                    if (target != null && view != null)
+                    if (targets != null && targets.Count > 0 && view != null)
                     {
-                        view.LookAtSnap(target.Position);
-                        target.TakeDamage(controller.Data.AttackPower);
+                        var primaryTarget = targets[0];
+                        if (primaryTarget != null)
+                        {
+                            view.LookAtSnap(primaryTarget.Position);
+                        }
+
+                        if (animController != null)
+                        {
+                            animController.PlayAttack();
+                        }
                     }
                 })
                 .AddTo(disposables);
-            
+
+            // 攻撃キャンセル時にアニメーションをリセット
+            controller.GetAttackCancelObservable()
+                .Subscribe(_ =>
+                {
+                    if (animController != null)
+                    {
+                        animController.StopAttack();
+                    }
+                })
+                .AddTo(disposables);
+
             // 死亡時の処理
             controller.SubscribeDeathEvent(() =>
             {
-                controller.OnDead();
-                Destroy(gameObject);
+                HandleDeathAsync().Forget();
             });
+        }
+        
+        private async UniTaskVoid HandleDeathAsync()
+        {
+            if (animController != null)
+            {
+                await animController.PlayDeathAsync();
+            }
+
+            controller.OnDead();
+            Destroy(gameObject);
         }
 
         private void Update()

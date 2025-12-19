@@ -33,10 +33,32 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             
             previewRenderers = CurrentPreviewObject.GetComponentsInChildren<Renderer>();
             
+            var holder = CurrentPreviewObject.GetComponent<AllyEntityHolder>();
+            if (holder != null)
+            {
+                Destroy(holder);
+            }
+            
             var battlePresenter = CurrentPreviewObject.GetComponent<AllyBattlePresenter>();
             if (battlePresenter != null)
             {
-                battlePresenter.enabled = false;
+                Destroy(battlePresenter);
+            }
+        }
+        
+        /// <summary>
+        /// プレビューの向きを更新（2D画像の左右反転）
+        /// </summary>
+        public void UpdatePreviewRotation(Quaternion rotation)
+        {
+            if (CurrentPreviewObject == null)
+                return;
+                
+            CurrentPreviewObject.transform.rotation = rotation;
+            
+            if (CurrentPreviewObject.TryGetComponent<AllyView>(out var allyView))
+            {
+                allyView.SetInitialDirection(rotation);
             }
         }
 
@@ -48,6 +70,12 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             obj.transform.position = position;
             obj.transform.rotation = rotation;
 
+            // 味方の向きを設定（2D画像の左右反転）
+            if (obj.TryGetComponent<AllyView>(out var allyView))
+            {
+                allyView.SetInitialDirection(rotation);
+            }
+
             if (obj.TryGetComponent<AllyBattlePresenter>(out var presenter))
             {
                 presenter.Initialize(onDeath);
@@ -56,19 +84,22 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
 
         public void UpdatePreviewVisuals(bool isValid)
         {
-            if (previewRenderers == null || previewRenderers.Length == 0)
+            if (CurrentPreviewObject == null)
                 return;
-
-            Color targetColor = isValid ? validColor : invalidColor;
             
-            foreach (var r in previewRenderers)
+            CurrentPreviewObject.SetActive(isValid);
+            
+            if (isValid && previewRenderers != null)
             {
-                if (r != null)
+                foreach (var r in previewRenderers)
                 {
-                    var materials = r.materials;
-                    foreach (var mat in materials)
+                    if (r != null)
                     {
-                        mat.color = targetColor;
+                        var materials = r.materials;
+                        foreach (var mat in materials)
+                        {
+                            mat.color = validColor;
+                        }
                     }
                 }
             }
@@ -81,6 +112,7 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
                 Destroy(CurrentPreviewObject);
                 CurrentPreviewObject = null;
             }
+            
             previewRenderers = null;
         }
     }

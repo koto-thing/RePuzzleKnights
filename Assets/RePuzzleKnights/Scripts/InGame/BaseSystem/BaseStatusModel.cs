@@ -25,6 +25,7 @@ namespace RePuzzleKnights.Scripts.InGame.BaseSystem
 
         /// <summary>
         /// ダメージを受ける処理
+        /// 耐久値が0になった場合は破壊イベントを発火
         /// </summary>
         public void TakeDamage(int damage)
         {
@@ -33,9 +34,12 @@ namespace RePuzzleKnights.Scripts.InGame.BaseSystem
             
             int nextValue = Mathf.Max(0, currentDurability.Value - damage);
             currentDurability.Value = nextValue;
+            
+            Debug.Log($"[BaseStatusModel] Base took {damage} damage. Remaining: {currentDurability.Value}/{maxDurability}");
 
             if (currentDurability.Value <= 0)
             {
+                Debug.Log("[BaseStatusModel] Base destroyed!");
                 onBaseDestroyed.OnNext(Unit.Default);
             }
         }

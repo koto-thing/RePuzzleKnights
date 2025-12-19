@@ -20,7 +20,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  MaxHp: 100
+  MaxHp: 200
   AttackPower: 10
   AttackRange: 3
   AttackInterval: 1

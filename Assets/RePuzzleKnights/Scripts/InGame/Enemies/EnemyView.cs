@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using R3;
+using RePuzzleKnights.Scripts.InGame.Rendering;
 using UnityEngine;
 
 namespace RePuzzleKnights.Scripts.InGame.Enemies
@@ -16,7 +17,10 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
     
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private float scaleMultiplier = 1.3f; // 跳ねる演出用
+        [SerializeField] private float scaleMultiplier = 1.3f;
+
+        [SerializeField] private DissolveEffect dissolveEffect;
+        [SerializeField] private Collider enemyCollider;
 
         private Sequence moveSequence;
 
@@ -63,6 +67,25 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
             {
                 spriteRenderer.DOColor(Color.red, 0.1f)
                     .SetLoops(2, LoopType.Yoyo);
+            }
+        }
+
+        public async UniTask PlayDeathEffectAsync()
+        {
+            moveSequence?.Kill();
+
+            if (enemyCollider != null)
+            {
+                enemyCollider.enabled = false;
+            }
+
+            if (dissolveEffect != null)
+            {
+                await dissolveEffect.PlayDissolveEffectAsync();
+            }
+            else
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
             }
         }
         

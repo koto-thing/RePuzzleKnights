@@ -52,8 +52,8 @@ MonoBehaviour:
   lensAttenuationMode: 0
   colorGradingSpace: 0
   m_ObsoleteDiffusionProfileSettingsList:
-  - {fileID: 11400000, guid: 48e911a1e337b44e2b85dbc65b47a594, type: 2}
-  - {fileID: 11400000, guid: 879ffae44eefa4412bb327928f1a96dd, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   specularFade: 0
   rendererListCulling: 0
   m_ObsoleteDefaultVolumeProfile: {fileID: 0}
@@ -193,7 +193,27 @@ MonoBehaviour:
       - rid: 7507187571055394839
       - rid: 7507187571055394840
     m_RuntimeSettings:
-      m_List: []
+      m_List:
+      - rid: 8556427327610290176
+      - rid: 8556427327610290178
+      - rid: 8556427327610290180
+      - rid: 7507187571055394816
+      - rid: 7507187571055394817
+      - rid: 7507187571055394819
+      - rid: 7507187571055394820
+      - rid: 7507187571055394821
+      - rid: 7507187571055394822
+      - rid: 7507187571055394824
+      - rid: 7507187571055394827
+      - rid: 7507187571055394828
+      - rid: 7507187571055394829
+      - rid: 7507187571055394830
+      - rid: 7507187571055394833
+      - rid: 7507187571055394834
+      - rid: 7507187571055394835
+      - rid: 7507187571055394836
+      - rid: 7507187571055394839
+      - rid: 7507187571055394840
   renderingLayerNames:
   - Light Layer default
   - Light Layer 1

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using R3;
 using RePuzzleKnights.Scripts.InGame.Allies.SO;
 using RePuzzleKnights.Scripts.InGame.Enemies.Interface;
@@ -27,8 +28,11 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         public ReadOnlyReactiveProperty<List<IEnemyEntity>> BlockedEnemies => blockedEnemies;
         private readonly ReactiveProperty<List<IEnemyEntity>> blockedEnemies = new(new List<IEnemyEntity>());
         
-        public Observable<IEnemyEntity> OnAttackRequested => onAttackRequested;
-        private readonly Subject<IEnemyEntity> onAttackRequested = new();
+        public Observable<IList<IEnemyEntity>> OnAttackRequested => onAttackRequested;
+        private readonly Subject<IList<IEnemyEntity>> onAttackRequested = new();
+        
+        public Observable<Unit> OnAttackCancelled => onAttackCancelled;
+        private readonly Subject<Unit> onAttackCancelled = new();
         
         public AllyBattleModel(AllyDataSO data)
         {
@@ -117,30 +121,105 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
             return attackTimer.Value >= allyData.AttackInterval;
         }
         
-        public IEnemyEntity GetBestTarget()
+        /// <summary>
+        /// 最も優先度の高い敵を一体取得（単体攻撃用）
+        /// </summary>
+        /// <returns>優先度の高い敵</returns>
+        public IEnemyEntity GetBestTarget(Vector3 myPosition)
         {
-            var validEnemies = new List<IEnemyEntity>();
-            foreach (var enemy in enemiesInSight.Value)
+            // 
+            var candidates = enemiesInSight.Value
+                .Where(e => e != null && !e.IsDead)
+                .ToList();
+
+            if (candidates.Count == 0)
+                return null;
+
+            switch (allyData.Priority)
             {
-                if (enemy != null && !enemy.IsDead)
+                case AttackPriority.FLYING_PRIORITIZED:
+                    var flyingEnemies = candidates.Where(e => e.IsFlying).ToList();
+                    if (flyingEnemies.Count > 0)
+                    {
+                        return flyingEnemies[0];
+                    }
+
+                    return GetClosestEnemy(myPosition, flyingEnemies);
+                
+                case AttackPriority.BLOCK_ONLY:
+                    var blocked = blockedEnemies.Value.Where(e => e != null && !e.IsDead).ToList();
+                    if (blocked.Count > 0)
+                    {
+                        return GetClosestEnemy(myPosition, blocked);
+                    }
+
+                    return null;
+                
+                case AttackPriority.CLOSEST:
+                default:
+                    return GetClosestEnemy(myPosition, candidates);
+            }
+        }
+
+        private IEnemyEntity GetClosestEnemy(Vector3 myPosition, List<IEnemyEntity> enemies)
+        {
+            if (enemies.Count == 0)
+                return null;
+
+            IEnemyEntity bestTarget = null;
+            float minSqrDistance = float.MaxValue;
+
+            foreach (var enemy in enemies)
+            {
+                float sqrDist = (enemy.Position - myPosition).sqrMagnitude;
+                if (sqrDist < minSqrDistance)
                 {
-                    validEnemies.Add(enemy);
+                    minSqrDistance = sqrDist;
+                    bestTarget = enemy;
                 }
             }
             
-            if (validEnemies.Count == 0)
-                return null;
-            
-            return validEnemies[0];
+            return bestTarget;
+        }
+
+        /// <summary>
+        /// 範囲内のすべての有効な敵を取得（範囲攻撃用）
+        /// </summary>
+        /// <returns></returns>
+        public IList<IEnemyEntity> GetAllTargets()
+        {
+            return enemiesInSight.Value
+                .Where(e => e != null && !e.IsDead)
+                .ToList();
         }
         
-        public void RequestAttack(IEnemyEntity target, float attackPower)
+        /// <summary>
+        /// 攻撃実行
+        /// </summary>
+        /// <param name="targets">攻撃対象のリスト</param>
+        /// <param name="attackPower">攻撃力</param>
+        public void RequestAttack(IList<IEnemyEntity> targets, float attackPower)
         {
-            if (target != null && !target.IsDead)
+            if (targets == null || targets.Count == 0)
+                return;
+
+            foreach (var target in targets)
             {
-                target.TakeDamage(attackPower);
-                onAttackRequested.OnNext(target);
+                if (target != null && !target.IsDead)
+                {
+                    target.TakeDamage(attackPower);
+                }
             }
+            
+            onAttackRequested.OnNext(targets);
+        }
+        
+        /// <summary>
+        /// 攻撃キャンセルを通知
+        /// </summary>
+        public void CancelAttack()
+        {
+            onAttackCancelled.OnNext(Unit.Default);
         }
     }
 }
