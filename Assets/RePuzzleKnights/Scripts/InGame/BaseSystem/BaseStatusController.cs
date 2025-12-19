@@ -4,6 +4,10 @@ using VContainer.Unity;
 
 namespace RePuzzleKnights.Scripts.InGame.BaseSystem
 {
+    /// <summary>
+    /// 本拠地ステータスのコントローラークラス
+    /// ModelとViewの連携を管理
+    /// </summary>
     public class BaseStatusController : IInitializable, IDisposable
     {
         private BaseStatusModel model;
@@ -17,11 +21,17 @@ namespace RePuzzleKnights.Scripts.InGame.BaseSystem
             this.view = view;
         }
 
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
         public void Initialize()
         {
             SubscribeEvents();
         }
 
+        /// <summary>
+        /// イベント購読の設定
+        /// </summary>
         private void SubscribeEvents()
         {
             model.CurrentDurability

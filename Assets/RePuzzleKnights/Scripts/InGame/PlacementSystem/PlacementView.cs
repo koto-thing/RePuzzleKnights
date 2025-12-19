@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using RePuzzleKnights.Scripts.InGame.Allies;
 using RePuzzleKnights.Scripts.InGame.Allies.SO;
 using UnityEngine;
@@ -39,13 +40,18 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             }
         }
 
-        public async UniTaskVoid CreateAllyAsync(AllyDataSO data, Vector3 position, Quaternion rotation)
+        public async UniTaskVoid CreateAllyAsync(AllyDataSO data, Vector3 position, Quaternion rotation, Action<AllyDataSO> onDeath)
         {
             var handle = Addressables.InstantiateAsync(data.PrefabRef);
             var obj = await handle.ToUniTask();
 
             obj.transform.position = position;
             obj.transform.rotation = rotation;
+
+            if (obj.TryGetComponent<AllyBattlePresenter>(out var presenter))
+            {
+                presenter.Initialize(onDeath);
+            }
         }
 
         public void UpdatePreviewVisuals(bool isValid)

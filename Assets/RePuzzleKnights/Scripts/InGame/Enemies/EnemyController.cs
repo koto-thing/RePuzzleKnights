@@ -1,126 +1,76 @@
 ﻿using System;
-using System.Collections.Generic;
 using R3;
-using RePuzzleKnights.Scripts.InGame.BaseSystem;
+using RePuzzleKnights.Scripts.InGame.Allies.Interface;
 using RePuzzleKnights.Scripts.InGame.Enemies.Interface;
+using RePuzzleKnights.Scripts.InGame.Enemies.SO;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace RePuzzleKnights.Scripts.InGame.Enemies
 {
     /// <summary>
     /// 敵キャラクターの制御を行うコントローラークラス
-    /// ステータス、移動、状態管理を統合して管理する
+    /// ビジネスロジックに集中し、ViewやModelとの連携を管理
     /// </summary>
-    public class EnemyController : IInitializable, ITickable, IDisposable, IEnemyEntity
+    public class EnemyController : IDisposable, IEnemyEntity
     {
-        // ステータス管理
-        public EnemyStatus Status { get; } = new();
-        
-        // 移動制御
-        public EnemyMover Mover { get; } = new();
-        
-        // 状態管理（ステルス、スタン等）
-        public EnemyStateController StateManager { get; } = new();
-        
-        private readonly EnemyView view;
-        private readonly EnemyDataSO data;
-        private readonly BaseStatusModel baseStatusModel;
+        private readonly EnemyModel model;
+        private readonly Transform transform;
         
         private readonly CompositeDisposable disposables = new();
 
-        // 飛行タイプかどうか
-        public bool IsFlying => data.MoveType == MovementType.FLYING;
-        
-        // 死亡しているか
-        public bool IsDead => Status.IsDead.CurrentValue;
-        
-        // 現在位置
-        public Vector3 Position => view.transform.position;
-        
-        // ゴールまでの距離
-        // ゴールまでの距離
-        public float DistanceToGoal => Vector3.Distance(Position, Mover.CurrentTarget.CurrentValue);
+        // IEnemyEntity実装
+        public bool IsFlying => model.Data.MoveType == MovementType.FLYING;
+        public bool IsDead => model.Status.IsDead.CurrentValue;
+        public Vector3 Position => transform.position;
+        public float DistanceToGoal => Vector3.Distance(Position, model.Mover.CurrentTarget.CurrentValue);
+
+        // Model参照の公開（Presenterで使用）
+        public EnemyModel Model => model;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public EnemyController(
-            EnemyView view, 
-            EnemyDataSO data, 
-            BaseStatusModel baseStatusModel, 
-            List<Vector3> path)
+        public EnemyController(EnemyModel model, Transform transform)
         {
-            this.view = view;
-            this.data = data;
-            this.baseStatusModel = baseStatusModel;
-
-            Status.Initialize(data);
-            StateManager.Initialize(data.InitialStates);
-            Mover.Initialize(data, path);
+            this.model = model;
+            this.transform = transform;
         }
 
         /// <summary>
-        /// 初期化処理
+        /// 毎フレーム更新
         /// </summary>
-        public void Initialize()
+        public void Tick(float deltaTime)
         {
-            view.SetController(this);
-            view.InitializeStatusDisplay(Status, data.MaxHp);
-            SubscribeEvents();
-        }
-
-        public void Tick()
-        {
-            // 必要なら毎フレーム処理
-        }
-
-        /// <summary>
-        /// イベント購読の設定
-        /// </summary>
-        private void SubscribeEvents()
-        {
-            // 移動
-            Mover.CurrentTarget
-                .Subscribe(target =>
-                {
-                    view.MoveTo(target, data.MoveSpeed, () => Mover.OnArrivedAtTarget());
-                })
-                .AddTo(disposables);
-
-            // 死亡
-            Status.IsDead
-                .Where(dead => dead)
-                .Subscribe(_ =>
-                {
-                    view.DestroyActor();
-                    Dispose();
-                })
-                .AddTo(disposables);
-
-            // ゴール到達
-            Mover.OnGoalReached
-                .Subscribe(_ =>
-                {
-                    // 本拠地にダメージ
-                    baseStatusModel.TakeDamage(1);
-                    
-                    view.DestroyActor();
-                    Dispose();
-                })
-                .AddTo(disposables);
-        }
-
-        /// <summary>
-        /// 敵がブロックされた際の処理
-        /// </summary>
-        public void OnBlocked(MonoBehaviour blocker)
-        {
-            if (StateManager.HasState(EnemyState.UNSTOPPABLE))
-                return;
+            var blocker = model.CurrentBlocker.CurrentValue;
             
-            Mover.SetBlocked(true);
-            view.PauseMove();
+            if (blocker != null)
+            {
+                // ブロッカーが死亡していたら解放
+                if (blocker.IsDead)
+                {
+                    OnReleased();
+                }
+                else
+                {
+                    // 攻撃処理
+                    model.UpdateAttackTimer(deltaTime);
+                    if (model.CanAttack())
+                    {
+                        AttackBlocker(blocker);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// ブロックされた際の処理
+        /// </summary>
+        public void OnBlocked(IAllyEntity blocker)
+        {
+            if (model.StateManager.HasState(EnemyState.UNSTOPPABLE))
+                return;
+
+            model.SetBlocker(blocker);
         }
 
         /// <summary>
@@ -128,8 +78,7 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         /// </summary>
         public void OnReleased()
         {
-            Mover.SetBlocked(false);
-            view.ResumeMove();
+            model.ClearBlocker();
         }
 
         /// <summary>
@@ -137,14 +86,30 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         /// </summary>
         public void TakeDamage(float damage)
         {
-            Status.TakeDamage(damage);
-            view.PlayDamageEffect();
+            model.Status.TakeDamage(damage);
         }
         
         /// <summary>
         /// ステルス状態かどうかを判定
         /// </summary>
-        public bool IsStealth() => StateManager.HasState(EnemyState.STEALTH);
+        public bool IsStealth() => model.StateManager.HasState(EnemyState.STEALTH);
+
+        /// <summary>
+        /// 位置を設定（スムーズな移動用）
+        /// </summary>
+        public void SetTargetPosition(Vector3 position, float duration = 0.3f)
+        {
+            model.SetTargetPosition(position, duration);
+        }
+
+        /// <summary>
+        /// ブロッカーを攻撃
+        /// </summary>
+        private void AttackBlocker(IAllyEntity blocker)
+        {
+            blocker.TakeDamage(model.Data.AttackPower);
+            model.ResetAttackTimer();
+        }
 
         public void Dispose()
         {

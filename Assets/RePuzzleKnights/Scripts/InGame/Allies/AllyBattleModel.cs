@@ -2,12 +2,21 @@
 using R3;
 using RePuzzleKnights.Scripts.InGame.Allies.SO;
 using RePuzzleKnights.Scripts.InGame.Enemies.Interface;
+using UnityEngine;
 
 namespace RePuzzleKnights.Scripts.InGame.Allies
 {
     public class AllyBattleModel
     {
         private readonly AllyDataSO allyData;
+
+        public int EnemyLayerMask = LayerMask.GetMask("Default", "Enemy");
+
+        public ReadOnlyReactiveProperty<float> CurrentHp => currentHp;
+        private readonly ReactiveProperty<float> currentHp = new (0.0f);
+
+        public ReadOnlyReactiveProperty<bool> IsDead => isDead;
+        private readonly ReactiveProperty<bool> isDead = new (false);
         
         public ReadOnlyReactiveProperty<float> AttackTimer => attackTimer;
         private readonly ReactiveProperty<float> attackTimer = new(0f);
@@ -24,6 +33,20 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         public AllyBattleModel(AllyDataSO data)
         {
             this.allyData = data;
+            currentHp.Value = data.MaxHp;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            if (isDead.Value)
+                return;
+
+            currentHp.Value -= damage;
+            if (currentHp.Value <= 0.0f)
+            {
+                currentHp.Value = 0.0f;
+                isDead.Value = true;
+            }
         }
         
         public void UpdateAttackTimer(float deltaTime)
@@ -34,6 +57,11 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         public void ResetAttackTimer()
         {
             attackTimer.Value = 0f;
+        }
+
+        public void SetEnemiesInSight(List<IEnemyEntity> enemies)
+        {
+            enemiesInSight.Value = enemies;
         }
         
         public void AddEnemyInSight(IEnemyEntity enemy)
@@ -106,9 +134,13 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
             return validEnemies[0];
         }
         
-        public void RequestAttack(IEnemyEntity target)
+        public void RequestAttack(IEnemyEntity target, float attackPower)
         {
-            onAttackRequested.OnNext(target);
+            if (target != null && !target.IsDead)
+            {
+                target.TakeDamage(attackPower);
+                onAttackRequested.OnNext(target);
+            }
         }
     }
 }

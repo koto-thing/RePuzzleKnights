@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using RePuzzleKnights.Scripts.InGame.BaseSystem;
-using RePuzzleKnights.Scripts.InGame.Enemies;
+using RePuzzleKnights.Scripts.InGame.Enemies.Interface;
+using RePuzzleKnights.Scripts.InGame.Enemies.SO;
 using RePuzzleKnights.Scripts.InGame.PathFinder;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -10,7 +11,7 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
 {
     /// <summary>
     /// 敵キャラクターの生成を管理するファクトリークラス
-    /// Addressablesを使った非同期生成、経路計算、コントローラーの初期化を担当
+    /// Addressablesを使った非同期生成、経路計算、MVC構造の初期化を担当
     /// </summary>
     public class EnemyFactory : IEnemyFactoryService
     {
@@ -31,7 +32,7 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
             EnemyDataSO data,
             Vector3 spawnPosition)
         {
-            // 生成
+            // プレハブの生成
             var prefab = data.PrefabRef;
             if (prefabRef != null && prefabRef.RuntimeKeyIsValid()) 
                 prefab = prefabRef;
@@ -42,11 +43,13 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
             // 経路計算
             List<Vector3> path = CalculatePath(spawnPosition, data);
 
-            // 汎用コントローラー生成 (baseStatusModelを渡す)
-            var controller = new EnemyController(view, data, baseStatusModel, path);
+            // MVC構造の構築
+            var model = new EnemyModel(data, path);
+            var controller = new EnemyController(model, instance.transform);
+            var presenter = new EnemyPresenter(model, controller, view, baseStatusModel);
     
             // 初期化
-            controller.Initialize();
+            presenter.Initialize();
 
             return instance;
         }
@@ -64,7 +67,6 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         /// </summary>
         private List<Vector3> CalculatePathFromGraph(Vector3 spawnPosition)
         {
-            // 既存のコードそのまま
             if (graphCreator == null) 
                 return new List<Vector3>();
             

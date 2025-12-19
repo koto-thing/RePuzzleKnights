@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RePuzzleKnights.Scripts.InGame.Allies.Interface;
+using UnityEngine;
 
 namespace RePuzzleKnights.Scripts.InGame.Enemies.Interface
 {
@@ -21,12 +22,15 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies.Interface
         float DistanceToGoal { get; }
 
         // ブロックされた際の処理
-        void OnBlocked(MonoBehaviour blocker);
+        void OnBlocked(IAllyEntity blocker);
         
         // ブロックから解放された際の処理
         void OnReleased();
         
         // ダメージを受ける処理
         void TakeDamage(float damage);
+        
+        // 位置を設定（スムーズな移動用）
+        void SetTargetPosition(Vector3 position, float duration = 0.3f);
     }
 }

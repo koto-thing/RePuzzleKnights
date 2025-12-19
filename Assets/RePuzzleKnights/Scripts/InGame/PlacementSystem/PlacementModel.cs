@@ -3,10 +3,13 @@ using RePuzzleKnights.Scripts.InGame.Allies.Enum;
 using RePuzzleKnights.Scripts.InGame.Allies.SO;
 using RePuzzleKnights.Scripts.InGame.PlacementSystem.Enum;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
 {
+    /// <summary>
+    /// 配置システムのデータと状態を管理するModelクラス
+    /// 配置状態、選択中の味方、プレビュー位置などを管理
+    /// </summary>
     public class PlacementModel
     {
         private readonly LayerMask placementLayerMask = LayerMask.GetMask("Default", "Ground", "HighGround");
@@ -33,7 +36,13 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
 
         public Observable<Unit> OnCanceled => onCanceled;
         private readonly Subject<Unit> onCanceled = new();
+
+        public Observable<AllyDataSO> OnAllyDefeated => onAllyDefeated;
+        private readonly Subject<AllyDataSO> onAllyDefeated = new ();
         
+        /// <summary>
+        /// ドラッグを開始
+        /// </summary>
         public void StartDragging(AllyDataSO data)
         {
             if (currentPlacementState.Value != PlacementState.IDLE)
@@ -44,12 +53,11 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             currentPlacementState.Value = PlacementState.DRAGGING;
         }
 
-        public void HandleDragging()
+        /// <summary>
+        /// ドラッグ中の処理
+        /// </summary>
+        public void HandleDragging(Ray ray)
         {
-            if (Camera.main == null)
-                return;
-
-            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             bool hit = Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, placementLayerMask);
             if (hit)
             {
@@ -70,42 +78,53 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             {
                 UpdatePosition(Vector3.zero, false);
             }
+        }
 
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+        /// <summary>
+        /// 向き調整中の処理
+        /// </summary>
+        public void HandleOrienting(Vector3 mouseWorldPoint)
+        {
+            Vector3 centerPos = PreviewPosition.CurrentValue;
+            Vector3 direction = mouseWorldPoint - centerPos;
+
+            Quaternion rotation = CalculateSnapRotation(direction);
+            UpdateRotation(rotation);
+        }
+
+        /// <summary>
+        /// 位置を固定
+        /// </summary>
+        public void TryFixPosition()
+        {
+            if (currentPlacementState.Value != PlacementState.DRAGGING)
+                return;
+
+            if (isValidPosition.Value)
             {
-                TryFixPosition();
+                currentPlacementState.Value = PlacementState.ORIENTING;
+            }
+            else
+            {
+                Cancel();
             }
         }
 
-        public void HandleOrienting()
+        /// <summary>
+        /// 配置を確定
+        /// </summary>
+        public void ConfirmPlacement()
         {
-            if (Camera.main == null)
+            if (currentPlacementState.Value != PlacementState.ORIENTING)
                 return;
             
-            // 左クリック長押し中だけ、向きを更新する
-            if (Mouse.current.leftButton.isPressed)
-            {
-                Vector3 centerPos = PreviewPosition.CurrentValue;
-
-                Plane plane = new Plane(Vector3.up, centerPos);
-                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-                if (plane.Raycast(ray, out float enter))
-                {
-                    Vector3 mousePoint = ray.GetPoint(enter);
-                    Vector3 direction = mousePoint - centerPos;
-
-                    Quaternion rotation = CalculateSnapRotation(direction);
-                    UpdateRotation(rotation);
-                }
-            }
-            
-            // 左クリックを離した瞬間に確定する
-            if (Mouse.current.leftButton.wasReleasedThisFrame)
-            {
-                ConfirmPlacement();
-            }
+            onPlacementConfirmed.OnNext((selectedAlly.Value, previewPosition.Value, previewRotation.Value));
+            Reset();
         }
 
+        /// <summary>
+        /// スナップした向きを計算
+        /// </summary>
         private Quaternion CalculateSnapRotation(Vector3 direction)
         {
             if (direction.sqrMagnitude < 0.001f)
@@ -121,6 +140,9 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             }
         }
 
+        /// <summary>
+        /// プレビュー位置を更新
+        /// </summary>
         private void UpdatePosition(Vector3 position, bool isValid)
         {
             if (currentPlacementState.Value != PlacementState.DRAGGING)
@@ -130,21 +152,9 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             isValidPosition.Value = isValid;
         }
 
-        private void TryFixPosition()
-        {
-            if (currentPlacementState.Value != PlacementState.DRAGGING)
-                return;
-
-            if (isValidPosition.Value)
-            {
-                currentPlacementState.Value = PlacementState.ORIENTING;
-            }
-            else
-            {
-                Cancel();
-            }
-        }
-
+        /// <summary>
+        /// プレビュー回転を更新
+        /// </summary>
         private void UpdateRotation(Quaternion rotation)
         {
             if (currentPlacementState.Value != PlacementState.ORIENTING)
@@ -153,15 +163,9 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             previewRotation.Value = rotation;
         }
 
-        private void ConfirmPlacement()
-        {
-            if (currentPlacementState.Value != PlacementState.ORIENTING)
-                return;
-            
-            onPlacementConfirmed.OnNext((selectedAlly.Value, previewPosition.Value, previewRotation.Value));
-            Reset();
-        }
-
+        /// <summary>
+        /// タグの妥当性をチェック
+        /// </summary>
         private bool CheckTagValidity(GameObject target)
         {
             var data = selectedAlly.Value;
@@ -177,17 +181,31 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             return false;
         }
 
+        /// <summary>
+        /// キャンセル
+        /// </summary>
         public void Cancel()
         {
             onCanceled.OnNext(Unit.Default);
             Reset();
         }
 
+        /// <summary>
+        /// 状態をリセット
+        /// </summary>
         private void Reset()
         {
             currentPlacementState.Value = PlacementState.IDLE;
             selectedAlly.Value = null;
             isValidPosition.Value = false;
+        }
+
+        /// <summary>
+        /// 味方が倒された際の通知
+        /// </summary>
+        public void NotifyAllyDefeated(AllyDataSO data)
+        {
+            onAllyDefeated.OnNext(data);
         }
     }
 }

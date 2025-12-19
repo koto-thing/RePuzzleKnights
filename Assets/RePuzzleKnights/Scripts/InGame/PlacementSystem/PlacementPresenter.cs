@@ -59,7 +59,7 @@ namespace RePuzzleKnights.Scripts.InGame.PlacementSystem
             model.OnPlacementConfirmed
                 .Subscribe(payload =>
                 {
-                    view.CreateAllyAsync(payload.data, payload.position, payload.rotation).Forget();
+                    view.CreateAllyAsync(payload.data, payload.position, payload.rotation, data => model.NotifyAllyDefeated(data)).Forget();
                 })
                 .AddTo(disposables);
 

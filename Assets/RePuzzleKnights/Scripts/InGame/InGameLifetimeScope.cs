@@ -8,6 +8,10 @@ using VContainer.Unity;
 
 namespace RePuzzleKnights.Scripts.InGame
 {
+    /// <summary>
+    /// InGameシーンのDIコンテナ設定
+    /// VContainerを使用してシステム間の依存関係を管理
+    /// </summary>
     public class InGameLifetimeScope : LifetimeScope
     {
         protected override void Configure(IContainerBuilder builder)
@@ -21,6 +25,7 @@ namespace RePuzzleKnights.Scripts.InGame
             builder.RegisterComponentInHierarchy<GraphCreator>();
             
             // 配置システム
+            builder.Register<PlacementInputService>(Lifetime.Singleton);
             builder.Register<PlacementModel>(Lifetime.Singleton);
             builder.Register<PlacementController>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.RegisterEntryPoint<PlacementPresenter>();
@@ -40,4 +45,3 @@ namespace RePuzzleKnights.Scripts.InGame
         }
     }
 }
-

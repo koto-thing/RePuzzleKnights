@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace RePuzzleKnights.Scripts.InGame.BaseSystem
 {
+    /// <summary>
+    /// 本拠地ステータスの表示を管理するViewクラス
+    /// 耐久値の表示を担当
+    /// </summary>
     public class BaseStatusView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI durabilityText;

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace RePuzzleKnights.Scripts.InGame.Enemies
+namespace RePuzzleKnights.Scripts.InGame.Enemies.SO
 {
     /// <summary>
     /// 敵のランク（強さ）を定義

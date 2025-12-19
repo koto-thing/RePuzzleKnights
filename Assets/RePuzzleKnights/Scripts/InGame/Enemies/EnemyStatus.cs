@@ -1,4 +1,5 @@
 ﻿using R3;
+using RePuzzleKnights.Scripts.InGame.Enemies.SO;
 
 namespace RePuzzleKnights.Scripts.InGame.Enemies
 {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using R3;
+using UnityEngine;
 
 namespace RePuzzleKnights.Scripts.InGame.Allies
 {
@@ -7,14 +8,6 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
         [SerializeField] private Transform modelTransform;
         
         public Vector3 FacingDirection { get; private set; } = Vector3.forward;
-
-        private void LateUpdate()
-        {
-            if (Camera.main == null)
-                return;
-            
-            transform.rotation = Camera.main.transform.rotation;
-        }
 
         public void LookAtSnap(Vector3 targetPoint)
         {
@@ -54,6 +47,19 @@ namespace RePuzzleKnights.Scripts.InGame.Allies
 
             FacingDirection = direction;
             modelTransform.rotation = Quaternion.Euler(0, angle, 0);
+        }
+
+        public void InitializeStatusDisplay(AllyBattleModel model, float maxHp)
+        {
+            var statusView = GetComponentInChildren<AllyStatusView>();
+            if (statusView != null)
+            {
+                statusView.SetMaxHp(maxHp);
+                
+                model.CurrentHp
+                    .Subscribe(hp => statusView.UpdateHp(hp))
+                    .AddTo(this);
+            }
         }
     }
 }

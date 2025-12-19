@@ -2,9 +2,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using R3;
-using RePuzzleKnights.Scripts.InGame.Enemies.Interface;
 using UnityEngine;
-using PlayerLoopTiming = R3.PlayerLoopTiming;
 
 namespace RePuzzleKnights.Scripts.InGame.Enemies
 {
@@ -14,7 +12,7 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
     /// </summary>
     public class EnemyView : MonoBehaviour
     {
-        private IEnemyEntity controller;
+        private EnemyController controller;
     
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -22,16 +20,21 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
 
         private Sequence moveSequence;
 
+        private void Update()
+        {
+            controller?.Tick(Time.deltaTime);
+        }
+
         /// <summary>
         /// コントローラーを設定
         /// </summary>
-        public void SetController(IEnemyEntity controller)
+        public void SetController(EnemyController enemyController)
         {
-            this.controller = controller;
+            this.controller = enemyController;
             
             // Holderにコントローラーを登録
             var holder = GetComponent<EnemyEntityHolder>();
-            if(holder != null) holder.Initialize(controller);
+            if(holder != null) holder.Initialize(enemyController);
         }
 
         /// <summary>
@@ -39,14 +42,14 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         /// </summary>
         public void InitializeStatusDisplay(EnemyStatus status, float maxHp)
         {
-            var statusView = GetComponentInChildren<BugEnemyStatusView>(); 
+            var statusView = GetComponentInChildren<EnemyStatusView>(); 
             if (statusView != null)
             {
-                statusView.UpdateSlider(maxHp);
+                statusView.SetMaxHp(maxHp);
                 
                 // HPの変動を監視してスライダーに反映
                 status.CurrentHp
-                    .Subscribe(hp => statusView.UpdateSlider(hp))
+                    .Subscribe(hp => statusView.UpdateHp(hp))
                     .AddTo(this);
             }
         }
@@ -121,6 +124,61 @@ namespace RePuzzleKnights.Scripts.InGame.Enemies
         public void ResumeMove()
         {
             moveSequence?.Play();
+        }
+
+        /// <summary>
+        /// 移動を再開（ブロック解除時用）
+        /// 現在位置から目標地点へ新しく移動を開始
+        /// </summary>
+        public void RestartMove(Vector3 target, float moveSpeed, Action onComplete)
+        {
+            // 既存の移動シーケンスを停止
+            moveSequence?.Kill();
+
+            // 現在位置から目標地点までの距離を計算
+            float distance = Vector3.Distance(transform.position, target);
+            if (distance <= 0.001f)
+            {
+                UniTask.Void(async () =>
+                {
+                    await UniTask.Yield();
+                    onComplete?.Invoke();
+                });
+                return;
+            }
+
+            // 新しい移動を開始
+            float duration = distance / moveSpeed;
+
+            moveSequence = DOTween.Sequence();
+            
+            var moveTween = transform.DOMove(target, duration).SetEase(Ease.Linear);
+            
+            if (spriteRenderer != null)
+            {
+                moveSequence
+                    .Append(moveTween)
+                    .Join(DOTween.Sequence()
+                        .Append(spriteRenderer.transform.DOScaleX(0.1f * scaleMultiplier, duration / 2).SetEase(Ease.InOutSine))
+                        .Append(spriteRenderer.transform.DOScaleX(0.1f, duration / 2).SetEase(Ease.InOutSine))
+                    );
+            }
+            else
+            {
+                moveSequence.Append(moveTween);
+            }
+
+            moveSequence.OnComplete(() => onComplete?.Invoke());
+        }
+
+        /// <summary>
+        /// 指定位置にスムーズに移動（ブロック時の位置調整用）
+        /// </summary>
+        public void MoveToPosition(Vector3 targetPosition, float duration)
+        {
+            // 既存の移動シーケンスはそのまま
+            // 位置調整用の別のTweenを使用
+            transform.DOMove(targetPosition, duration).SetEase(Ease.OutQuad);
         }
 
         /// <summary>

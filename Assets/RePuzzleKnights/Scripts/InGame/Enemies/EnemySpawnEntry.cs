@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RePuzzleKnights.Scripts.InGame.Enemies;
+using RePuzzleKnights.Scripts.InGame.Enemies.SO;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
