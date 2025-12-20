@@ -50,6 +50,7 @@ namespace RePuzzleKnights.Scripts.InGame
             builder.RegisterEntryPoint<GameFlowController>();
             builder.RegisterEntryPoint<GameResultPresenter>();
             builder.RegisterComponentInHierarchy<GameResultView>();
+            builder.RegisterComponentInHierarchy<GameFlowSoundEmitter>();
         }
     }
 }

@@ -13,13 +13,15 @@ namespace RePuzzleKnights.Scripts.InGame.GameFlowSystem
     {
         private readonly GameFlowModel model;
         private readonly GameResultView view;
+        private readonly GameFlowSoundEmitter soundEmitter;
         
         private readonly CompositeDisposable disposables = new();
         
-        public GameResultPresenter(GameFlowModel model, GameResultView view)
+        public GameResultPresenter(GameFlowModel model, GameResultView view, GameFlowSoundEmitter soundEmitter)
         {
             this.model = model;
             this.view = view;
+            this.soundEmitter = soundEmitter;
         }
 
         public void Initialize()
@@ -36,6 +38,20 @@ namespace RePuzzleKnights.Scripts.InGame.GameFlowSystem
                 .Where(state => state != GameResultState.PLAYING)
                 .Subscribe(state =>
                 {
+                    // BGMを停止
+                    soundEmitter?.StopBgm();
+                    
+                    // 効果音を再生
+                    if (state == GameResultState.GAME_CLEAR)
+                    {
+                        soundEmitter?.PlayStageClearSe();
+                    }
+                    else if (state == GameResultState.GAME_OVER)
+                    {
+                        soundEmitter?.PlayGameOverSe();
+                    }
+                    
+                    // 結果画面を表示
                     view.ShowResult(state);
                 })
                 .AddTo(disposables);

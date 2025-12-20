@@ -208,11 +208,9 @@ MonoBehaviour:
       - rid: 7507187571055394828
       - rid: 7507187571055394829
       - rid: 7507187571055394830
+      - rid: 7507187571055394831
       - rid: 7507187571055394833
       - rid: 7507187571055394834
-      - rid: 7507187571055394835
-      - rid: 7507187571055394836
-      - rid: 7507187571055394839
       - rid: 7507187571055394840
   renderingLayerNames:
   - Light Layer default
@@ -270,7 +268,7 @@ MonoBehaviour:
         m_Camera:
           bitDatas:
             data1: 72198260625768269
-            data2: 13799031439032811544
+            data2: 13799031440106553368
           lodBias: 1
           lodBiasMode: 0
           lodBiasQualityLevel: 0

@@ -5,9 +5,27 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/OutdoorsScene.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
+  - enabled: 1
+    path: Assets/RePuzzleKnights/Scenes/TitleScene.unity
+    guid: 06ec7de6af892014a803089f8b096315
+  - enabled: 1
+    path: Assets/RePuzzleKnights/Scenes/StageSelectScene.unity
+    guid: ad4675ecf405e5345bc47bf6f0ad5b35
+  - enabled: 1
+    path: Assets/RePuzzleKnights/Scenes/Stage1Scene.unity
+    guid: 4522eab4a54de4b4786f597814a198fa
+  - enabled: 1
+    path: Assets/RePuzzleKnights/Scenes/Stage2Scene.unity
+    guid: 80b34e40e182cab48b77e3e3581f76d5
+  - enabled: 1
+    path: Assets/RePuzzleKnights/Scenes/Stage3Scene.unity
+    guid: 8c5d06678cc93b94aa0c0656ab8119e4
+  - enabled: 1
+    path: Assets/RePuzzleKnights/Scenes/Stage4Scene.unity
+    guid: 71073a6515bbaa945a7571f098c80d66
+  - enabled: 1
+    path: Assets/RePuzzleKnights/Scenes/Stage5Scene.unity
+    guid: 2fe4b344eb32c184691cb17f8d466dce
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 56a2f83c53de7054f88d86f2b4bee982, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 35845fe01580c41289b024647b1d1c53, type: 3}
