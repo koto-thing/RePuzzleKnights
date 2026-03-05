@@ -117,9 +117,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4516901797204451874}
-  - component: {fileID: 7919343333884380998}
+  - component: {fileID: 4369820015929279713}
+  - component: {fileID: 1193306152365794447}
   - component: {fileID: 1855853092566044260}
-  - component: {fileID: 2151944178704063519}
   - component: {fileID: 1742917842889962762}
   m_Layer: 9
   m_Name: BugEnemy
@@ -145,7 +145,7 @@ Transform:
   - {fileID: 1920657273255328459}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7919343333884380998
+--- !u!114 &4369820015929279713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3789921372835544140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4be9e9faa0f64e7eb756d62bde96e350, type: 3}
+  m_Script: {fileID: 11500000, guid: 85242df2efc31f14599006ed3c8f5c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
@@ -162,6 +162,18 @@ MonoBehaviour:
   scaleMultiplier: 1.3
   dissolveEffect: {fileID: 2564545524744875069}
   enemyCollider: {fileID: 1742917842889962762}
+--- !u!114 &1193306152365794447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3789921372835544140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4e3a4704da367478017cb9f15126c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1855853092566044260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,18 +188,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpSlider: {fileID: 7830233608472866148}
   canvas: {fileID: 6952725004235387516}
---- !u!114 &2151944178704063519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3789921372835544140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49dcec56d0d24f37a4de6e2772ed0a46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &1742917842889962762
 SphereCollider:
   m_ObjectHideFlags: 0

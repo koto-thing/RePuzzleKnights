@@ -1,0 +1,19 @@
+using R3;
+using UnityEngine;
+
+namespace RePuzzleKnights.Scripts.Domain.Entities
+{
+    public interface IEnemy
+    {
+        ReadOnlyReactiveProperty<bool> IsDead { get; }
+        bool IsFlying { get; }
+        Vector3 Position { get; }
+        
+        void TakeDamage(float damage);
+        void OnBlocked(Ally blocker);
+        void OnReleased();
+    }
+}
+
+
+

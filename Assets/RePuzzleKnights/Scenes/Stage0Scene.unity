@@ -7297,6 +7297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durabilityText: {fileID: 249994634}
+  destroyEffect: {fileID: 0}
 --- !u!4 &1347487786
 Transform:
   m_ObjectHideFlags: 0
@@ -9419,7 +9420,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1751783692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1ceaba27aa4a9ca253b31c0134f552, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d0c8855fda014b4381d995d8c299586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
@@ -11571,9 +11572,9 @@ SceneRoots:
   - {fileID: 104172867}
   - {fileID: 274018104}
   - {fileID: 1808320379}
+  - {fileID: 1806304482}
   - {fileID: 1751783694}
   - {fileID: 1347487786}
-  - {fileID: 1806304482}
   - {fileID: 1813456247}
   - {fileID: 154885160}
   - {fileID: 1181292661}

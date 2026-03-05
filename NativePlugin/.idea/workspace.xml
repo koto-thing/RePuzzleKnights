@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/native_pathfinder/Cargo.toml">
+      <package file="$PROJECT_DIR$/native_pathfinder">
+        <feature name="default" enabled="true" />
+      </package>
+    </cargoProject>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9e2e37a3-1d9e-43c7-99cd-d54f23ba1cd9" name="変更" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/RePuzzleKnights.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Assets/Plugins/PathFinder.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/NativePlugin.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/native_pathfinder/src/pathfinder.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/native_pathfinder/src/state.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/native_pathfinder/src/vector3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Prefabs/BugEnemy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Prefabs/BugEnemy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Common.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Common/CurrentStageService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Common/CurrentStageService.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Common/RePuzzleKnights.Common.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Common/RePuzzleKnights.Common.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Common/StageProgressService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Common/StageProgressService.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/EditorScript/FindMissingScripts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/EditorScript/FindMissingScripts.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/EditorScript/GraphCreatorEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/EditorScript/GraphCreatorEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/EditorScript/RePuzzleKnights.EditorScript.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/EditorScript/RePuzzleKnights.EditorScript.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyAnimationController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyAnimationController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyBattleController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyBattleController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyBattleModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyBattleModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyBattlePresenter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyBattlePresenter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyEntityHolder.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyEntityHolder.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyStatusView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyStatusView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/AllyView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/Enum.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/Enum/AllyType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/Enum/AllyType.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/Interface.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/Interface/IAllyEntity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/Interface/IAllyEntity.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/SO.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/SO/AllyDataSO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Allies/SO/AllyDataSO.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/BaseSystem.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/BaseSystem/BaseStatusController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/BaseSystem/BaseStatusController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/BaseSystem/BaseStatusModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/BaseSystem/BaseStatusModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/BaseSystem/BaseStatusView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/BaseSystem/BaseStatusView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyEntityHolder.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyEntityHolder.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyFactory.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyMover.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyMover.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyPresenter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyPresenter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemySpawnEntry.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemySpawnEntry.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemySpawner.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemySpawner.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyStateController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyStateController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyStatus.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyStatus.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyStatusView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyStatusView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/EnemyView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/Interface.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/Interface/IEnemyEntity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/Interface/IEnemyEntity.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/Interface/IEnemyFactoryService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/Interface/IEnemyFactoryService.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/SO.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/SO/EnemyDataSO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/SO/EnemyDataSO.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/SO/EnemyWaveSO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Enemies/SO/EnemyWaveSO.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/Enum.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/Enum/GameResultState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/Enum/GameResultState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameFlowController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameFlowController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameFlowModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameFlowModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameFlowSoundEmitter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameFlowSoundEmitter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameResultPresenter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameResultPresenter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameResultView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/GameResultView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/Interface.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/Interface/IEnemyInfoProvider.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/Interface/IEnemyInfoProvider.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/Interface/IWaveInfoProvider.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/GameFlowSystem/Interface/IWaveInfoProvider.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/InGameLifetimeScope.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/InGameLifetimeScope.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/AStarPathFinder.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/AStarPathFinder.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Block.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Block/GoalBlock.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Block/GoalBlock.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Block/GroundBlock.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Block/GroundBlock.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Block/HighGroundBlock.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Block/HighGroundBlock.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Block/StartBlock.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Block/StartBlock.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Edge.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Edge.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Graph.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Graph.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/GraphCreator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/GraphCreator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Interface.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Interface/IBlock.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/Interface/IBlock.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/PathFinderController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/PathFinderController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/PathFinderModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/PathFinderModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/PathFinderView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/PathFinderView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/PriorityQueue.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PathFinder/PriorityQueue.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/Enum.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/Enum/PlacementState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/Enum/PlacementState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementConnector.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementConnector.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementInputService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementInputService.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementPresenter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementPresenter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/PlacementSystem/PlacementView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/RePuzzleKnights.InGame.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/RePuzzleKnights.InGame.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Rendering.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Rendering/CameraFacingBillBoard.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Rendering/CameraFacingBillBoard.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Rendering/DissolveEffect.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/InGame/Rendering/DissolveEffect.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/RePuzzleKnights.Scripts.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/RePuzzleKnights.Scripts.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/ButtonControl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/ButtonControl/ButtonController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/ButtonControl/ButtonController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/ButtonControl/ButtonModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/ButtonControl/ButtonModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/ButtonControl/ButtonView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/ButtonControl/ButtonView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/RePuzzleKnights.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/RePuzzleKnights.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/Enum.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/Enum/StageType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/Enum/StageType.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageDescriptionDataSO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageDescriptionDataSO.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageSelectController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageSelectController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageSelectDataSO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageSelectDataSO.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageSelectModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageSelectModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageSelectView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelect/StageSelectView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelectLifetimeScope.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/StageSelect/StageSelectLifetimeScope.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/ButtonControl.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/ButtonControl/ButtonController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/ButtonControl/ButtonController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/ButtonControl/ButtonModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/ButtonControl/ButtonModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/ButtonControl/ButtonView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/ButtonControl/ButtonView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/RePuzzleKnights.Title.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/RePuzzleKnights.Title.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/TitleLifetimeScope.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assets/RePuzzleKnights/Scripts/Title/TitleLifetimeScope.cs.meta" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_D:/Pandd/RePuzzleKnights/NativePlugin" value="39DCsSrDFVgeEwRlKt7oYp0s1Db" />
+    </persistenceIdMap>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="2" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:test" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "koto-thing"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/koto-thing/RePuzzleKnights.git",
+    "accountId": "2b583fd8-7ded-4e50-805e-895781023250"
+  }
+}]]></component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="ajWHwFmi" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="39DCsSrDFVgeEwRlKt7oYp0s1Db" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Cargo.Test lib::tests.executor": "Run",
+    "Cargo.Test tests::test_simple_path.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "feature/koto/ImpAStarAlgorithm#3",
+    "last_opened_file_path": "D:/Pandd/RePuzzleKnights/NativePlugin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.first.attach.projects": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecapSpentCounter">
+    <option name="endsOfQuotaMs" value="1771309867060" />
+    <option name="spentUsd" value="0.18434119" />
+  </component>
+  <component name="RecapUselessUpdatesCounter">
+    <option name="suspendCountdown" value="5" />
+  </component>
+  <component name="RunManager" selected="Cargo.Test lib::tests">
+    <configuration default="true" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="command" value="run" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test lib::tests" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package native_pathfinder --lib tests" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$/native_pathfinder" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test tests::test_simple_path" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="buildProfileId" value="test" />
+      <option name="command" value="test --package native_pathfinder --lib tests::test_simple_path -- --exact" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$/native_pathfinder" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cargo.Test lib::tests" />
+        <item itemvalue="Cargo.Test tests::test_simple_path" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e2e37a3-1d9e-43c7-99cd-d54f23ba1cd9" name="変更" comment="" />
+      <created>1717507282944</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1717507282944</updated>
+      <workItem from="1717507285415" duration="182000" />
+      <workItem from="1770221461957" duration="5898000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
