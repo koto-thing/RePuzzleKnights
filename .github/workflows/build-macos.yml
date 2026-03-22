@@ -3,7 +3,7 @@
 on:
   push:
     tags:
-      - 'path_finder_v*'  # v1.0.0, v1.0.1 などのタグでトリガー
+      - 'v*'
 
 jobs:
   build:
