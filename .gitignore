@@ -121,4 +121,4 @@ fmod_editor.log
 /Assets/FMODStudioCache.meta
 
 # Rust build artifacts
-/NativePlugin/target/
+/NativePlugin/native_pathfinder/target/*
