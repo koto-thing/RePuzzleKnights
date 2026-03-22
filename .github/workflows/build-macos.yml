@@ -28,12 +28,12 @@ jobs:
           override: true
       
       - name: Build (${{ matrix.name }})
-        working-directory: ./native_pathfinder
+        working-directory: ./NativePlugin/native_pathfinder
         run: cargo build --release --target ${{ matrix.target }}
       
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: libnative_pathfinder-${{ matrix.target }}
-          path: native_pathfinder/target/${{ matrix.target }}/release/libnative_pathfinder.dylib
+          path: NativePlugin/native_pathfinder/target/${{ matrix.target }}/release/libnative_pathfinder.dylib
 
