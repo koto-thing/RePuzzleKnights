@@ -1,7 +1,8 @@
 using System;
 using R3;
-using RePuzzleKnights.Scripts.CleanArchitecture.Domain.Entities;
-using RePuzzleKnights.Scripts.CleanArchitecture.UseCase.InGame;
+using RePuzzleKnights.Scripts.Application.InGame;
+using RePuzzleKnights.Scripts.Domain.Entities;
+using RePuzzleKnights.Scripts.Presentation.InGame;
 using UnityEngine;
 using VContainer.Unity;
 
