@@ -1,4 +1,4 @@
-﻿name: Build for macOS
+name: Build for macOS
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
             name: Intel x86_64
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Install Rust (${{ matrix.name }})
         uses: actions-rs/toolchain@v1
@@ -32,7 +32,7 @@ jobs:
         run: cargo build --release --target ${{ matrix.target }}
       
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: libnative_pathfinder-${{ matrix.target }}
           path: native_pathfinder/target/${{ matrix.target }}/release/libnative_pathfinder.dylib
