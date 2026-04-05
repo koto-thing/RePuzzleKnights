@@ -11,6 +11,7 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         public string Name { get; }
         public PlacementType PlacementType { get; }
         public AllyType Type { get; }
+        public ElementType Element { get; }
         public float MaxHp { get; }
         public float AttackPower { get; }
         public float AttackRange { get; }
@@ -23,14 +24,16 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         public bool CanAttackFlying { get; }
 
         public AllyStats(
-            string name, PlacementType placementType, AllyType type, float maxHp, float attackPower, 
-            float attackRange, float attackInterval, int blockCount, 
-            float searchRadius, AttackRangeType rangeType, AttackPriority priority, 
+            string name, PlacementType placementType, AllyType type, ElementType element,
+            float maxHp, float attackPower,
+            float attackRange, float attackInterval, int blockCount,
+            float searchRadius, AttackRangeType rangeType, AttackPriority priority,
             float splashRadius, bool canAttackFlying)
         {
             Name = name;
             PlacementType = placementType;
             Type = type;
+            Element = element;
             MaxHp = maxHp;
             AttackPower = attackPower;
             AttackRange = attackRange;

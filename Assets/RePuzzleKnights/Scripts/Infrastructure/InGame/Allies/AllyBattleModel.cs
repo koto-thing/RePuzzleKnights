@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using R3;
+using RePuzzleKnights.Scripts.Domain.Services;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.SO;
 using UnityEngine;
 
@@ -206,7 +207,8 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
             {
                 if (target != null && !target.IsDead)
                 {
-                    target.TakeDamage(attackPower);
+                    float multiplier = ElementChart.GetMultiplier(_allyData.Element, target.Element);
+                    target.TakeDamage(attackPower * multiplier);
                 }
             }
             

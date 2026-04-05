@@ -14,6 +14,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Enemies.Definitions
         [Header("基本情報")]
         public string EnemyName;
         public EnemyRank Rank;
+        public ElementType Element;
         public AssetReferenceGameObject PrefabRef;
 
         [Header("ステータス")]

@@ -108,8 +108,10 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         }
         
         public Vector3 Position => CurrentPosition;
-        
+
         public bool IsFlying => Stats.MoveType == MovementType.FLYING;
+
+        public ElementType Element => Stats.Element;
         
         /// <summary>
         /// ブロックしている味方をセット

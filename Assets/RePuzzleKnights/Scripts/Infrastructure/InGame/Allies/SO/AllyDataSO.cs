@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using RePuzzleKnights.Scripts.Domain.Enums;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.Enum;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -22,9 +23,10 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.SO
     [CreateAssetMenu(fileName = "New AllyData", menuName = "Allies/Create New AllyData")]
     public class AllyDataSO : ScriptableObject
     {
-        [Header("基本設定")] 
+        [Header("基本設定")]
         public string AllyName;
         public AllyType AllyType;
+        public ElementType Element;
         public AssetReferenceGameObject PrefabRef;
 
         [Header("戦闘ステータス")] 
