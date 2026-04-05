@@ -21,7 +21,8 @@ namespace RePuzzleKnights.Scripts.Domain.Services
         {
             if (target != null && !target.IsDead.CurrentValue)
             {
-                target.TakeDamage(attacker.Stats.AttackPower);
+                float multiplier = ElementChart.GetMultiplier(attacker.Stats.Element, target.Element);
+                target.TakeDamage(attacker.Stats.AttackPower * multiplier);
             }
         }
 

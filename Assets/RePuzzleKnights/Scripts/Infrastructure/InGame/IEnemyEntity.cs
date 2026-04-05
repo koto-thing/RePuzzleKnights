@@ -1,3 +1,4 @@
+using RePuzzleKnights.Scripts.Domain.Enums;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.Interface;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
     {
         bool IsDead { get; }
         bool IsFlying { get; }
+        ElementType Element { get; }
         Vector3 Position { get; }
         
         void TakeDamage(float damage);

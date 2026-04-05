@@ -52,6 +52,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             
             var stats = new EnemyStats(
                 data.EnemyName,
+                data.Element,
                 data.MaxHp,
                 data.MoveSpeed,
                 data.AttackPower,

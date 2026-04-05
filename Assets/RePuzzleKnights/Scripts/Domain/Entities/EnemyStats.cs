@@ -5,6 +5,7 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
     public class EnemyStats
     {
         public string Name { get; }
+        public ElementType Element { get; }
         public float MaxHp { get; }
         public float MoveSpeed { get; }
         public float AttackPower { get; }
@@ -16,6 +17,7 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
 
         public EnemyStats(
             string name,
+            ElementType element,
             float maxHp,
             float moveSpeed,
             float attackPower,
@@ -26,6 +28,7 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
             bool ignoreTerrain)
         {
             Name = name;
+            Element = element;
             MaxHp = maxHp;
             MoveSpeed = moveSpeed;
             AttackPower = attackPower;

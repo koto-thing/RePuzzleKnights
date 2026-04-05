@@ -73,6 +73,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
                 data.AllyName,
                 placementType,
                 allyType,
+                data.Element,
                 data.MaxHp,
                 data.AttackPower,
                 data.AttackRange,

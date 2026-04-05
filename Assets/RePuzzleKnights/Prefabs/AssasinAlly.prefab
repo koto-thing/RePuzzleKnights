@@ -343,6 +343,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelTransform: {fileID: 3129891249123280024}
+  statusView: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &572669130025012319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1935,6 +1937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf1728e869e14ccea9cf3a0e08ab7bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slashVfx: {fileID: 0}
 --- !u!114 &2186793935596236537 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8953437347878863298, guid: 1d9cc0131ab77b1439e5ced03534b0c7, type: 3}

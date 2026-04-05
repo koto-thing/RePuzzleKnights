@@ -1,4 +1,5 @@
 using RePuzzleKnights.Scripts.Domain.Entities;
+using RePuzzleKnights.Scripts.Domain.Enums;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.Interface;
 using RePuzzleKnights.Scripts.Presentation.InGame;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
 
         public bool IsDead => _domainEnemy.IsDead.CurrentValue;
         public bool IsFlying => _domainEnemy.IsFlying;
+        public ElementType Element => _domainEnemy.Element;
         public Vector3 Position => _domainEnemy.Position;
 
         public void TakeDamage(float damage)
