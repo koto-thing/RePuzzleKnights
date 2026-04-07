@@ -11,7 +11,7 @@ public class StoryTextManager : MonoBehaviour
     [Header("画像")]
     [SerializeField] private SpriteRenderer characterSr; //キャラ画像のSpriteRenderer
     [SerializeField] private Sprite[] characterSprites;
-    [SerializeField] private Sprite background;
+    [SerializeField] private GameObject background;
 
     [Header("ボタン")] 
     [SerializeField] private Button nextButton; // テキストを進めるボタン
