@@ -19,6 +19,7 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
         [SerializeField] private List<Button> stageButtons;
 
         [Header("Detail Panel")]
+        [SerializeField] private StageSelectScrollController scrollController;
         [SerializeField] private GameObject stageDescriptionPanel;
         [SerializeField] private Button startButton;
         [SerializeField] private Button backButton;
@@ -119,8 +120,12 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
             if (stageDescriptionText != null) 
                 stageDescriptionText.text = stage.Description;
             
-            if (stageImage != null) 
-                stageImage.sprite = image;
+            if (stageImage != null)
+            {
+                stageImage.gameObject.SetActive(image != null);
+                if (image != null)
+                    stageImage.sprite = image;
+            }
         }
 
         public void SetInteractable(bool interactable)
@@ -146,7 +151,8 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
                 Debug.LogError("[StageSelectView] stageDescriptionPanel is null!");
                 return;
             }
-            
+
+            scrollController?.SetScrollEnabled(false);
             stageDescriptionPanel.SetActive(true);
             stageDescriptionPanel.transform.DOKill();
             
@@ -164,7 +170,8 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
                 Debug.LogError("[StageSelectView] stageDescriptionPanel is null!");
                 return;
             }
-            
+
+            scrollController?.SetScrollEnabled(true);
             stageDescriptionPanel.transform.DOKill();
             stageDescriptionPanel.transform.DOLocalMoveX(1000, 0.5f)
                 .SetEase(Ease.InCubic)
