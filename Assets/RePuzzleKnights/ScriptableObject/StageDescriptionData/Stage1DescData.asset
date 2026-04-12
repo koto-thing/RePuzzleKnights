@@ -15,7 +15,7 @@ MonoBehaviour:
   stageNumber: 1
   stageName: STAGE 1
   stageDescription: STAGE 1
-  stageImage: {fileID: 0}
+  stageImage: {fileID: 21300000, guid: 9d5f846c0fc14ab42a326c97d39435af, type: 3}
   sceneRef:
     m_AssetGUID: 4522eab4a54de4b4786f597814a198fa
     m_SubObjectName: 

@@ -120,8 +120,12 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
             if (stageDescriptionText != null) 
                 stageDescriptionText.text = stage.Description;
             
-            if (stageImage != null) 
-                stageImage.sprite = image;
+            if (stageImage != null)
+            {
+                stageImage.gameObject.SetActive(image != null);
+                if (image != null)
+                    stageImage.sprite = image;
+            }
         }
 
         public void SetInteractable(bool interactable)
