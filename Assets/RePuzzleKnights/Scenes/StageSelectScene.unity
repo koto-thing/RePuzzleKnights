@@ -3133,6 +3133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1638246638}
   - component: {fileID: 1638246639}
+  - component: {fileID: 1638246640}
   m_Layer: 0
   m_Name: StageSelectController
   m_TagString: Untagged
@@ -3175,12 +3176,31 @@ MonoBehaviour:
   - {fileID: 122061297}
   - {fileID: 1719449393}
   - {fileID: 418764994}
+  scrollController: {fileID: 1638246640}
   stageDescriptionPanel: {fileID: 11161872}
   startButton: {fileID: 60494349}
   backButton: {fileID: 1124093422}
   stageTitleText: {fileID: 225334582}
   stageDescriptionText: {fileID: 1671867529}
   stageImage: {fileID: 1446909391}
+--- !u!114 &1638246640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638246636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43630e02a2e246b3862cd2067d703f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollTarget: {fileID: 752619282}
+  scrollSpeed: 300
+  edgeThreshold: 0.1
+  scrollAxis: {x: 0, y: 1, z: 0}
+  minPosition: -950
+  maxPosition: 0
 --- !u!1 &1658725444
 GameObject:
   m_ObjectHideFlags: 0
