@@ -12,8 +12,8 @@ public class ScenarioModel : ScriptableObject
     [SerializeField] private ScenarioData scenarioData;
     [SerializeField] private int currentSceneIndex;
 
-    [Header("次のシーン")] 
-    [SerializeField] private string nextScene;
+    //[Header("次のシーン")] 
+    //[SerializeField] private string nextScene;
         
     [Header("シナリオが終了したかどうか")]
     [SerializeField] private ReactiveProperty<bool> isScenarioEnd = new ReactiveProperty<bool>(false);
@@ -23,7 +23,7 @@ public class ScenarioModel : ScriptableObject
     public int CurrentFilePathIndex { get => currentFilePathIndex; set => currentFilePathIndex = value; }
     public ScenarioData ScenarioData { get => scenarioData; set => scenarioData = value; }
     public int CurrentSceneIndex { get => currentSceneIndex; set => currentSceneIndex = value; }
-    public string NextScene { get => nextScene; set => nextScene = value; }
+    //public string NextScene { get => nextScene; set => nextScene = value; }
     public Observable<bool> IsScenarioEnd => isScenarioEnd.AsObservable();
 
     public void Init()

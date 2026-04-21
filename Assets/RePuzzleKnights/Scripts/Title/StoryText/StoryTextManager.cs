@@ -10,7 +10,6 @@ public class StoryTextManager : MonoBehaviour
     
     [Header("画像")]
     [SerializeField] private SpriteRenderer characterSr; //キャラ画像のSpriteRenderer
-    [SerializeField] private Sprite[] characterSprites;
     [SerializeField] private GameObject background;
 
     [Header("ボタン")] 
@@ -41,11 +40,13 @@ public class StoryTextManager : MonoBehaviour
     // @param scenarioData シナリオデータ, currentIndex シナリオのインデックス
     public void UpdateText(ScenarioData scenarioData, int currentIndex)
     {
-        nextButton.enabled = currentIndex != scenarioData.scenes.Count;
-        backButton.enabled = currentIndex != 1;
+        nextButton.gameObject.SetActive(currentIndex < scenarioData.scenes.Count);
+        backButton.gameObject.SetActive(currentIndex != 0);
         NameText.text = scenarioData.scenes[currentIndex].name;
         SentenceText.text = scenarioData.scenes[currentIndex].sentence;
-        CharacterSr.sprite = characterSprites[int.Parse(scenarioData.scenes[currentIndex].charaImage)];
+
+        string path = "CharacterImages/" + scenarioData.scenes[currentIndex].image;
+        CharacterSr.sprite = Resources.Load<Sprite>(path);
     }
     
     // @brief イベント群の登録
@@ -55,8 +56,6 @@ public class StoryTextManager : MonoBehaviour
         nextButton.onClick
             .AddListener(() =>
             {
-                Debug.Log("ボタンが押されました");
-
                 if (model.CurrentSceneIndex < model.ScenarioData.scenes.Count)
                 {
                     UpdateText(model.ScenarioData, model.CurrentSceneIndex++);
@@ -65,6 +64,18 @@ public class StoryTextManager : MonoBehaviour
                 {
                     model.CurrentSceneIndex = 0;
                     LoadScenario();
+                } 
+            });
+        
+        backButton.onClick
+            .AddListener(() =>
+            {
+                Debug.Log("ボタンが押されました");
+                
+                if (model.CurrentSceneIndex > 0)
+                {
+                    model.CurrentFilePathIndex--;
+                    UpdateText(model.ScenarioData, model.CurrentSceneIndex++);
                 }
             });
     }

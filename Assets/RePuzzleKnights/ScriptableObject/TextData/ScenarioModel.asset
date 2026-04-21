@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8173bd52e2a44f85a46930d00b1a095, type: 3}
+  m_Name: ScenarioModel
+  m_EditorClassIdentifier: RePuzzleKnights.Title::ScenarioModel
+  filePath:
+  - Scenario_1.json
+  currentFilePathIndex: 1
+  scenarioData:
+    scenes:
+    - id: 1
+      name: hero
+      sentence: one \ntwo \nthree
+      image: Chara_1
+    - id: 2
+      name: hero
+      sentence: four \nfive \nsix
+      image: Chara_2
+  currentSceneIndex: 2

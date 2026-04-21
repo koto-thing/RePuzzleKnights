@@ -8,7 +8,7 @@ public class Scenario
     public string id;
     public string name; //キャラ名
     public string sentence; //セリフ
-    public string charaImage; //キャラ画像
+    public string image; //キャラ画像の名前
 }
 
 [Serializable]
