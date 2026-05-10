@@ -7,7 +7,8 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
     public class Ally
     {
         public string Id { get; }
-        public AllyStats Stats { get; }
+        public AllyStats Stats { get; private set; }
+        public FusionState FusionState { get; }
 
         public ReadOnlyReactiveProperty<float> CurrentHp => currentHp;
         private readonly ReactiveProperty<float> currentHp;
@@ -25,7 +26,16 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         {
             Id = id;
             Stats = stats;
+            FusionState = new FusionState(stats.Element);
             currentHp = new ReactiveProperty<float>(stats.MaxHp);
+        }
+
+        public void UpdateStats(AllyStats newStats)
+        {
+            Stats = newStats;
+            // HPを割合で調整（最大HPが増えた場合など）
+            float hpRatio = currentHp.Value / Stats.MaxHp;
+            // ... ここは必要に応じて実装
         }
 
         /// <summary>

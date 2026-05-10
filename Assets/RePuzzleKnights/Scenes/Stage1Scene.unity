@@ -870,7 +870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: RePuzzleKnights.Scripts.Infrastructure.Common.RootLifetimeScope
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 2127989118}
@@ -878,6 +878,12 @@ MonoBehaviour:
   - {fileID: 838577063}
   - {fileID: 889761016}
   - {fileID: 301181090}
+  allyDatas:
+  - {fileID: 11400000, guid: ad593831a35c69c489152551786eeed7, type: 2}
+  - {fileID: 11400000, guid: 050f5f70dd2801b4492f982b4e0f405a, type: 2}
+  - {fileID: 11400000, guid: b7c5c2cd7e5690c47a74c09e4152a833, type: 2}
+  - {fileID: 11400000, guid: c628a78db9d716046b29242624a21f4f, type: 2}
+  - {fileID: 11400000, guid: 1d091496a524aec42b56e2233513ce00, type: 2}
 --- !u!4 &186071693
 Transform:
   m_ObjectHideFlags: 0
@@ -1328,7 +1334,7 @@ GameObject:
   - component: {fileID: 301181091}
   - component: {fileID: 301181092}
   m_Layer: 5
-  m_Name: AssasinCharacterUI
+  m_Name: DarkSoul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1366,9 +1372,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20f5c68df7445299bca220f06ace4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allyData: {fileID: 11400000, guid: 1d091496a524aec42b56e2233513ce00, type: 2}
+  soulData: {fileID: 11400000, guid: 1912d25569888a94cb197ec55a4f9b68, type: 2}
   redeployTime: 5
-  canvasGroup: {fileID: 0}
+  canvasGroup: {fileID: 993349720}
+  iconImage: {fileID: 1128882439}
 --- !u!1 &308243959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,11 +2292,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -360834699
-      Data2: 1305396522
-      Data3: -1699951945
-      Data4: -4132846
-    Path: event:/BGM/Stage0BGM
+      Data1: 1084573135
+      Data2: 1317268646
+      Data3: -1221682535
+      Data4: 1491129042
+    Path: event:/BGM/Towards_the_light
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 2
@@ -3035,7 +3042,7 @@ GameObject:
   - component: {fileID: 587063642}
   - component: {fileID: 587063643}
   m_Layer: 5
-  m_Name: ShieldCharacterUI
+  m_Name: WaterSoul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3073,9 +3080,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20f5c68df7445299bca220f06ace4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allyData: {fileID: 11400000, guid: b7c5c2cd7e5690c47a74c09e4152a833, type: 2}
+  soulData: {fileID: 11400000, guid: ba070b13fe79cea499103ca5ad42f0f7, type: 2}
   redeployTime: 5
-  canvasGroup: {fileID: 0}
+  canvasGroup: {fileID: 993349720}
+  iconImage: {fileID: 1390602387}
 --- !u!1 &610197754
 GameObject:
   m_ObjectHideFlags: 0
@@ -4315,7 +4323,7 @@ GameObject:
   - component: {fileID: 838577064}
   - component: {fileID: 838577065}
   m_Layer: 5
-  m_Name: ArcherCharacterUI
+  m_Name: GrassSoul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4353,9 +4361,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20f5c68df7445299bca220f06ace4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allyData: {fileID: 11400000, guid: 050f5f70dd2801b4492f982b4e0f405a, type: 2}
+  soulData: {fileID: 11400000, guid: f88681fc95a435240b09d5788eb5524c, type: 2}
   redeployTime: 5
-  canvasGroup: {fileID: 0}
+  canvasGroup: {fileID: 993349720}
+  iconImage: {fileID: 1027711511}
 --- !u!1 &839761193
 GameObject:
   m_ObjectHideFlags: 0
@@ -4977,7 +4986,7 @@ GameObject:
   - component: {fileID: 889761017}
   - component: {fileID: 889761018}
   m_Layer: 5
-  m_Name: MazeCharacterUI
+  m_Name: LightSoul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5015,9 +5024,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20f5c68df7445299bca220f06ace4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allyData: {fileID: 11400000, guid: c628a78db9d716046b29242624a21f4f, type: 2}
+  soulData: {fileID: 11400000, guid: 55d0227cae4154747a2da28d75ff4ba0, type: 2}
   redeployTime: 5
-  canvasGroup: {fileID: 0}
+  canvasGroup: {fileID: 993349720}
+  iconImage: {fileID: 2130939704}
 --- !u!1 &914060309
 GameObject:
   m_ObjectHideFlags: 0
@@ -5299,6 +5309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 993349718}
+  - component: {fileID: 993349720}
   - component: {fileID: 993349719}
   m_Layer: 5
   m_Name: CaracterLayout
@@ -5357,6 +5368,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &993349720
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993349717}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1027711509
 GameObject:
   m_ObjectHideFlags: 0
@@ -11307,7 +11330,7 @@ GameObject:
   - component: {fileID: 2127989119}
   - component: {fileID: 2127989120}
   m_Layer: 5
-  m_Name: SwordCharacterUI
+  m_Name: FireSoul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11345,9 +11368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20f5c68df7445299bca220f06ace4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allyData: {fileID: 11400000, guid: ad593831a35c69c489152551786eeed7, type: 2}
+  soulData: {fileID: 11400000, guid: 01e762b46e21ffc40b08c7703351f4a4, type: 2}
   redeployTime: 5
-  canvasGroup: {fileID: 0}
+  canvasGroup: {fileID: 993349720}
+  iconImage: {fileID: 312262171}
 --- !u!1 &2130846593
 GameObject:
   m_ObjectHideFlags: 0

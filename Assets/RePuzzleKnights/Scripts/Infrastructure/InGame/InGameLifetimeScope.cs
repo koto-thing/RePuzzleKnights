@@ -3,10 +3,12 @@ using RePuzzleKnights.Scripts.Domain.Entities;
 using RePuzzleKnights.Scripts.Domain.Repositories;
 using RePuzzleKnights.Scripts.Domain.Services;
 using RePuzzleKnights.Scripts.Infrastructure.Common;
+using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.GameFlowSystem;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.PathFinder;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Placement;
 using RePuzzleKnights.Scripts.Presentation.InGame;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -18,6 +20,8 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
     /// </summary>
     public class InGameLifetimeScope : LifetimeScope
     {
+        [SerializeField] private System.Collections.Generic.List<RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.SO.AllyDataSO> allyDatas;
+
         protected override void Configure(IContainerBuilder builder)
         {
             // 共通サービス
@@ -27,6 +31,13 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             // Clean Architecture Registrations
             builder.Register<StageDataRepository>(Lifetime.Singleton).As<IStageRepository>();
             builder.Register<GameFlowUseCase>(Lifetime.Singleton);
+            
+            builder.Register<AddressableAllyDataRepository>(Lifetime.Singleton)
+                .AsSelf()
+                .As<IAllyDataRepository>()
+                .WithParameter(allyDatas);
+
+            builder.Register<FusionUseCase>(Lifetime.Singleton);
             builder.Register<AllyFactory>(Lifetime.Singleton);
 
             // 経路探索システム

@@ -29,7 +29,11 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Placement
         {
             DestroyPreview();
             
-            if (prefabRef == null || !prefabRef.RuntimeKeyIsValid()) return;
+            if (prefabRef == null || !prefabRef.RuntimeKeyIsValid())
+            {
+                Debug.LogError("PlacementView: Invalid PrefabRef. Cannot show preview.");
+                return;
+            }
 
             var handle = Addressables.InstantiateAsync(prefabRef);
             var obj = await handle.ToUniTask();

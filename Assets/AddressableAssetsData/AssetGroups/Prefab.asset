@@ -39,6 +39,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Prefab
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c57c054dbb6bc84429bbe5e36d94a191
+    m_Address: Ally/FireSoul
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d765593a407d59d4f9f6a688b8e10a42
     m_Address: Ally/Shield
     m_ReadOnly: 0

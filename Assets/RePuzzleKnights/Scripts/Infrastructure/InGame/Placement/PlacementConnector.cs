@@ -12,9 +12,10 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Placement
 {
     public class PlacementConnector : MonoBehaviour, IPointerDownHandler
     {
-        [SerializeField] private AllyDataSO allyData;
+        [SerializeField] private SoulDataSO soulData;
         [SerializeField] private float redeployTime = 5.0f;
         [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private UnityEngine.UI.Image iconImage;
 
         private PlacementController _controller;
         private PlacementUseCase _useCase;
@@ -29,22 +30,26 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Placement
         private void Start()
         {
             if (_useCase == null) return;
+            if (soulData != null && iconImage != null)
+            {
+                iconImage.sprite = soulData.Icon;
+            }
 
             _useCase.OnPlacementConfirmed
-                .Where(payload => payload.stats.Name == allyData.AllyName) // Check Name
+                .Where(payload => soulData != null && payload.stats.Name == soulData.AllyName)
                 .Subscribe(_ => gameObject.SetActive(false))
                 .AddTo(this);
 
             _useCase.OnAllyDefeated
-                .Where(name => name == allyData.AllyName)
+                .Where(name => soulData != null && name == soulData.AllyName)
                 .Subscribe(_ => StartCooldownRoutine().Forget())
                 .AddTo(this);
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (_controller == null) return;
-            _controller.StartPlacement(allyData);
+            if (_controller == null || soulData == null) return;
+            _controller.StartPlacement(soulData);
         }
 
         private async UniTaskVoid StartCooldownRoutine()

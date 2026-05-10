@@ -1,7 +1,9 @@
 using RePuzzleKnights.Scripts.Application.InGame;
+using RePuzzleKnights.Scripts.Domain.Entities;
 using RePuzzleKnights.Scripts.Domain.Enums;
 using RePuzzleKnights.Scripts.Domain.Services;
 using RePuzzleKnights.Scripts.Infrastructure.InGame;
+using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.SO;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Placement;
 using UnityEngine;
@@ -16,6 +18,7 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
     public class PlacementController : ITickable
     {
         private readonly PlacementUseCase _useCase;
+        private readonly FusionUseCase _fusionUseCase;
         private readonly PlacementInputService _inputService;
         private readonly IPlacementValidator _validator;
         private readonly AllyFactory _allyFactory;
@@ -26,6 +29,7 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
 
         public PlacementController(
             PlacementUseCase useCase,
+            FusionUseCase fusionUseCase,
             PlacementInputService inputService,
             IPlacementValidator validator,
             AllyFactory allyFactory,
@@ -33,6 +37,7 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
             PlacementPresenter presenter)
         {
             this._useCase = useCase;
+            this._fusionUseCase = fusionUseCase;
             this._inputService = inputService;
             this._validator = validator;
             this._allyFactory = allyFactory;
@@ -88,10 +93,25 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
                  var allyStats = _useCase.SelectedAlly.CurrentValue;
                  bool isHighGround = allyStats is { PlacementType: PlacementType.HighGround };
                  
-                 bool isTagValid = _validator.IsTerrainValid(finalPosition, hitObj.tag, isHighGround);
-                 bool isOccupied = _validator.IsPositionOccupied(finalPosition);
+                 bool isTerrainValid = _validator.IsTerrainValid(finalPosition, hitObj.tag, isHighGround);
                  
-                 _useCase.UpdatePreview(finalPosition, isTagValid && !isOccupied);
+                 GameObject targetAllyObj = _validator.GetAllyObjectAtPosition(finalPosition);
+                 bool isFusionPossible = false;
+                 
+                 if (targetAllyObj != null)
+                 {
+                     var reference = targetAllyObj.GetComponentInParent<AllyReference>();
+                     if (reference != null)
+                     {
+                         // ドラッグ中のユニットは常にレベル1として扱う
+                         var draggingAlly = new Ally("temp", allyStats); 
+                         isFusionPossible = _fusionUseCase.CanFuse(reference.Ally, draggingAlly);
+                     }
+                 }
+                 
+                 bool isOccupied = targetAllyObj != null;
+                 
+                 _useCase.UpdatePreview(finalPosition, isTerrainValid && !isOccupied, isFusionPossible, targetAllyObj);
             }
             else
             {

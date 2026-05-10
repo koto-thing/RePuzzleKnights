@@ -6,6 +6,7 @@ using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.SO;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using VContainer;
 // Alias types to distinguish between Infrastructure and Domain enums
 using DomainAttackPriority = RePuzzleKnights.Scripts.Domain.Entities.AttackPriority;
 using DomainAttackRangeType = RePuzzleKnights.Scripts.Domain.Entities.AttackRangeType;
@@ -19,23 +20,58 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
     public class AllyFactory
     {
         private readonly PlacementUseCase _placementUseCase;
+        private readonly FusionUseCase _fusionUseCase;
+        private readonly AddressableAllyDataRepository _allyDataRepository;
+        private readonly IObjectResolver _container;
 
-        public AllyFactory(PlacementUseCase placementUseCase)
+        public AllyFactory(
+            PlacementUseCase placementUseCase,
+            FusionUseCase fusionUseCase,
+            AddressableAllyDataRepository allyDataRepository,
+            IObjectResolver container)
         {
              this._placementUseCase = placementUseCase;
+             this._fusionUseCase = fusionUseCase;
+             this._allyDataRepository = allyDataRepository;
+             this._container = container;
         }
 
         public async UniTask<Ally> CreateAllyAsync(AllyDataSO data, Vector3 position, Quaternion rotation)
         {
+            if (data.PrefabRef == null || !data.PrefabRef.RuntimeKeyIsValid())
+            {
+                Debug.LogError($"AllyFactory: Invalid PrefabRef for {data.AllyName}. Please ensure the prefab is assigned in the AllyDataSO or SoulDataSO asset.");
+                return null;
+            }
+
             var handle = Addressables.InstantiateAsync(data.PrefabRef);
             var obj = await handle.ToUniTask();
             obj.transform.position = position;
             obj.transform.rotation = rotation;
             
+            // レイヤーをAllyに設定（融合判定に必須）
+            int allyLayer = LayerMask.NameToLayer("Ally");
+            if (allyLayer != -1)
+            {
+                SetLayerRecursively(obj, allyLayer);
+            }
+            
+            // 1. まずエンティティとリファレンスを作成（最優先）
+            var stats = MapToStats(data);
+            var ally = new Ally(System.Guid.NewGuid().ToString(), stats);
+
+            var reference = obj.GetComponent<AllyReference>();
+            if (reference == null) reference = obj.AddComponent<AllyReference>();
+            reference.Initialize(ally);
+
+            // 2. その後にプレゼンターを初期化（リファレンスの中身が入っている状態で）
             var battlePresenter = obj.GetComponent<AllyBattlePresenter>();
             if (battlePresenter != null)
             {
-                battlePresenter.Initialize(allyData => {
+                // VContainerの依存注入
+                _container.Inject(battlePresenter);
+
+                battlePresenter.Initialize(data, allyData => {
                     _placementUseCase.NotifyAllyDefeated(allyData.AllyName);
                 });
             }
@@ -49,11 +85,17 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             {
                 view.SetInitialDirection(rotation);
             }
-            
-            var stats = MapToStats(data);
-            var ally = new Ally(System.Guid.NewGuid().ToString(), stats);
 
             return ally;
+        }
+
+        private void SetLayerRecursively(GameObject obj, int newLayer)
+        {
+            obj.layer = newLayer;
+            foreach (Transform child in obj.transform)
+            {
+                SetLayerRecursively(child.gameObject, newLayer);
+            }
         }
 
         public AllyStats CreateStats(AllyDataSO data)

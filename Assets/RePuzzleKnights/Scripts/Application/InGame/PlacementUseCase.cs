@@ -25,9 +25,14 @@ namespace RePuzzleKnights.Scripts.Application.InGame
 
         private readonly ReactiveProperty<bool> _isValidPosition = new(false);
         public ReadOnlyReactiveProperty<bool> IsValidPosition => _isValidPosition;
+
+        private readonly ReactiveProperty<bool> _isFusionMode = new(false);
+        public ReadOnlyReactiveProperty<bool> IsFusionMode => _isFusionMode;
+
+        private GameObject _targetAllyObject;
         
-        public Observable<(AllyStats stats, Vector3 position, Quaternion rotation)> OnPlacementConfirmed => _onPlacementConfirmed;
-        private readonly Subject<(AllyStats, Vector3, Quaternion)> _onPlacementConfirmed = new();
+        public Observable<(AllyStats stats, Vector3 position, Quaternion rotation, GameObject targetAlly)> OnPlacementConfirmed => _onPlacementConfirmed;
+        private readonly Subject<(AllyStats, Vector3, Quaternion, GameObject)> _onPlacementConfirmed = new();
 
         public Observable<string> OnAllyDefeated => _onAllyDefeated;
         private readonly Subject<string> _onAllyDefeated = new();
@@ -66,12 +71,16 @@ namespace RePuzzleKnights.Scripts.Application.InGame
         /// </summary>
         /// <param name="position">位置</param>
         /// <param name="isValid">配置可能な場所かどうか</param>
-        public void UpdatePreview(Vector3 position, bool isValid)
+        /// <param name="isFusion">融合可能かどうか</param>
+        /// <param name="targetAlly">融合対象の味方オブジェクト</param>
+        public void UpdatePreview(Vector3 position, bool isValid, bool isFusion = false, GameObject targetAlly = null)
         {
             if (_currentPlacementState.Value != PlacementState.DRAGGING) return;
 
             _previewPosition.Value = position;
-            _isValidPosition.Value = isValid;
+            _isValidPosition.Value = isValid || isFusion;
+            _isFusionMode.Value = isFusion;
+            _targetAllyObject = targetAlly;
         }
 
         /// <summary>
@@ -83,6 +92,8 @@ namespace RePuzzleKnights.Scripts.Application.InGame
 
             if (_isValidPosition.Value)
             {
+                // 融合モードの場合は向き調整をスキップして即確定でも良いが、
+                // 仕様に合わせて調整可能。一旦は既存フロー通りに進める。
                 _currentPlacementState.Value = PlacementState.ORIENTING;
             }
             else
@@ -108,7 +119,7 @@ namespace RePuzzleKnights.Scripts.Application.InGame
         {
             if (_currentPlacementState.Value != PlacementState.ORIENTING) return;
 
-            _onPlacementConfirmed.OnNext((_selectedAlly.Value, _previewPosition.Value, _previewRotation.Value));
+            _onPlacementConfirmed.OnNext((_selectedAlly.Value, _previewPosition.Value, _previewRotation.Value, _targetAllyObject));
             Reset();
         }
 
