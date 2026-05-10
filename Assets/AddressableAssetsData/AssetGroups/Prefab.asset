@@ -21,11 +21,21 @@ MonoBehaviour:
     m_SerializedLabels:
     - Prefab
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3629d751a70a51e46942da45c0cf4fb0
+    m_Address: Ally/DarkSoul
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 47eae8e2123c91f4f8cdb73a56d79391
     m_Address: Ally/Archer
     m_ReadOnly: 0
     m_SerializedLabels:
     - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8bee414ddf38cfe46b10e6713302d0b6
+    m_Address: Ally/GrassSoul
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a2fdf5db962bbfb4fb4407f421a86b92
     m_Address: Ally/Assasin
@@ -39,11 +49,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Prefab
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad443f297cd7b834e81bdd8110cf881c
+    m_Address: Ally/LightSoul
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1b9e94573ff6cc4e83ce09a77549e25
+    m_Address: Ally/WaterSoul
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c57c054dbb6bc84429bbe5e36d94a191
     m_Address: Ally/FireSoul
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Prefab
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d765593a407d59d4f9f6a688b8e10a42
     m_Address: Ally/Shield
