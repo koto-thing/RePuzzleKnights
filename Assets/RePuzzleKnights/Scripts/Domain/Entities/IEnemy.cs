@@ -12,6 +12,7 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         Vector3 Position { get; }
         
         void TakeDamage(float damage);
+        void FallIntoPitfall();
         void OnBlocked(Ally blocker);
         void OnReleased();
     }

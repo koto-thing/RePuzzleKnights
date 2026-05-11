@@ -27,6 +27,11 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             _domainEnemy.TakeDamage(damage);
         }
 
+        public void FallIntoPitfall()
+        {
+            _domainEnemy.FallIntoPitfall();
+        }
+
         public void OnBlocked(IAllyEntity blocker)
         {
             _domainEnemy.OnBlocked(null);

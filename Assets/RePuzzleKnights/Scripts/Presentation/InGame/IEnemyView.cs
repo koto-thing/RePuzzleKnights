@@ -9,6 +9,7 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
         void UpdateHp(float current, float max);
         void PlayDamageEffect();
         void PlayDeathEffect();
+        void PlayFallEffect();
         void DestroyActor();
     }
 }

@@ -19,12 +19,17 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         
         private List<Vector3> _wayPoints;
         private int _currentWaypointIndex;
-        
+        private readonly HashSet<int> _pitfallIndices;
+        private bool _isFallingIntoPitfall;
+
         public ReadOnlyReactiveProperty<Vector3> CurrentTarget => _currentTarget;
         private readonly ReactiveProperty<Vector3> _currentTarget = new();
 
         public Observable<Unit> OnGoalReached => _onGoalReached;
         private readonly Subject<Unit> _onGoalReached = new();
+
+        public Observable<Unit> OnFallenIntoPitfall => _onFallenIntoPitfall;
+        private readonly Subject<Unit> _onFallenIntoPitfall = new();
 
         public bool IsMoving { get; private set; } = true;
         
@@ -32,13 +37,15 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         private readonly ReactiveProperty<Ally> _currentBlocker = new();
         private List<Ally> _blockedBy = new();
 
-        public Enemy(string id, EnemyStats stats, List<Vector3> path, Vector3 initialPosition)
+        public Enemy(string id, EnemyStats stats, List<Vector3> path, Vector3 initialPosition,
+                     HashSet<int> pitfallIndices = null)
         {
             Id = id;
             Stats = stats;
             _wayPoints = path ?? new List<Vector3>();
             CurrentPosition = initialPosition;
-            
+            _pitfallIndices = pitfallIndices;
+
             _currentHp = new ReactiveProperty<float>(stats.MaxHp);
             _currentWaypointIndex = 0;
         }
@@ -85,8 +92,15 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         /// </summary>
         public void OnArrivedAtTarget()
         {
-            if (!IsMoving || _isDead.Value) 
+            if (!IsMoving || _isDead.Value)
                 return;
+
+            // 落とし穴に到達した場合（飛行ユニットは無視）
+            if (_pitfallIndices != null && _pitfallIndices.Contains(_currentWaypointIndex) && !IsFlying)
+            {
+                FallIntoPitfall();
+                return;
+            }
 
             while (true)
             {
@@ -107,6 +121,13 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
             }
         }
         
+        public void FallIntoPitfall()
+        {
+            if (_isFallingIntoPitfall || _isDead.Value) return;
+            _isFallingIntoPitfall = true;
+            TakeDamage(_currentHp.Value + 1f);
+        }
+
         public Vector3 Position => CurrentPosition;
 
         public bool IsFlying => Stats.MoveType == MovementType.FLYING;

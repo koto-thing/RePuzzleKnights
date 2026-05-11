@@ -116,15 +116,32 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
 
         public void PlayDeathEffect()
         {
-             UniTask.Void(async () => 
+             UniTask.Void(async () =>
              {
                  _moveSequence?.Kill();
                  if (enemyCollider != null) enemyCollider.enabled = false;
                  if (dissolveEffect != null) await dissolveEffect.PlayDissolveEffectAsync();
                  else await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
-                 
+
                  DestroyActor();
              });
+        }
+
+        public void PlayFallEffect()
+        {
+            UniTask.Void(async () =>
+            {
+                _moveSequence?.Kill();
+                if (enemyCollider != null) enemyCollider.enabled = false;
+
+                const float duration = 0.35f;
+                DOTween.Sequence()
+                    .Append(transform.DOMove(transform.position + new Vector3(0, -1f, 0), duration).SetEase(Ease.InQuad))
+                    .Join(transform.DOScale(Vector3.zero, duration).SetEase(Ease.InQuad));
+
+                await UniTask.Delay(TimeSpan.FromSeconds(duration));
+                DestroyActor();
+            });
         }
 
         public void DestroyActor()

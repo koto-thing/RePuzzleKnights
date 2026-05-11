@@ -5,6 +5,7 @@ using RePuzzleKnights.Scripts.Application.InGame;
 using RePuzzleKnights.Scripts.Domain.Entities;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Enemies.Definitions;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.PathFinder;
+using RePuzzleKnights.Scripts.Infrastructure.InGame.PathFinder.Block;
 using RePuzzleKnights.Scripts.Presentation.InGame;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -42,8 +43,8 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
         {
             if (data == null || data.PrefabRef == null) return null;
             
-            List<Vector3> path = CalculatePath(spawnPosition, data);
-            
+            var (path, pitfallIndices) = CalculatePath(spawnPosition, data);
+
             Vector3 startPos = path.Count > 0 ? path[0] : spawnPosition;
             
             var handle = Addressables.InstantiateAsync(data.PrefabRef, startPos, Quaternion.identity);
@@ -62,7 +63,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
                 data.MoveType,
                 data.IgnoreTerrain
             );
-            var enemy = new Enemy(System.Guid.NewGuid().ToString(), stats, path, startPos);
+            var enemy = new Enemy(System.Guid.NewGuid().ToString(), stats, path, startPos, pitfallIndices);
             
             var controller = new EnemyController(enemy);
             
@@ -85,35 +86,49 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             return enemy;
         }
         
-        private List<Vector3> CalculatePath(Vector3 spawnPosition, EnemyDataSO data)
+        private (List<Vector3> path, HashSet<int> pitfallIndices) CalculatePath(Vector3 spawnPosition, EnemyDataSO data)
         {
-            if (_graphCreator == null || _graphCreator.CreatedGraph == null) 
-                return new List<Vector3>();
+            var empty = (new List<Vector3>(), new HashSet<int>());
+
+            if (_graphCreator == null || _graphCreator.CreatedGraph == null)
+                return empty;
 
             var startName = _graphCreator.GetNearestBlockName(spawnPosition);
-            if (string.IsNullOrEmpty(startName)) 
-                return new List<Vector3>();
-            
-            if (_graphCreator.GoalBlockNames.Count == 0) 
-                return new List<Vector3>();
-            
+            if (string.IsNullOrEmpty(startName))
+                return empty;
+
+            if (_graphCreator.GoalBlockNames.Count == 0)
+                return empty;
+
             int randomIndex = UnityEngine.Random.Range(0, _graphCreator.GoalBlockNames.Count);
             var goalName = _graphCreator.GoalBlockNames[randomIndex];
 
             var pathNodeNames = _findPathUseCase.Execute(startName, goalName);
-            
-            if (pathNodeNames == null || pathNodeNames.Count == 0) 
-                return new List<Vector3>();
+            if (pathNodeNames == null || pathNodeNames.Count == 0)
+                return empty;
 
-            List<Vector3> vectorPath = new List<Vector3>();
+            var vectorPath     = new List<Vector3>();
+            var pitfallIndices = new HashSet<int>();
+            int index = 0;
+
             foreach (var nodeName in pathNodeNames)
             {
                 var block = _graphCreator.CreatedGraph.GetBlock(nodeName);
-                if (block != null) 
-                    vectorPath.Add(block.Position + new Vector3(0, 0.5f, 0));
+                if (block == null) continue;
+
+                vectorPath.Add(block.Position + new Vector3(0, 0.5f, 0));
+                if (block is PitfallBlock)
+                {
+                    pitfallIndices.Add(index);
+                    Debug.Log($"[EnemyFactory] 落とし穴をパスに検出: {nodeName} (index={index})");
+                }
+                index++;
             }
-            
-            return vectorPath;
+
+            if (pitfallIndices.Count == 0)
+                Debug.Log("[EnemyFactory] パス内に落とし穴なし（迂回ルートが選ばれた可能性あり）");
+
+            return (vectorPath, pitfallIndices);
         }
     }
 }

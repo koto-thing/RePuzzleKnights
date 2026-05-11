@@ -8,6 +8,8 @@ TagManager:
   - GOAL_BLOCK
   - HIGHGROUND_BLOCK
   - GROUND_BLOCK
+  - NOPLACE_BLOCK
+  - PITFALL_BLOCK
   layers:
   - Default
   - TransparentFX
