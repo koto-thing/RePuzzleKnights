@@ -52,12 +52,13 @@ namespace RePuzzleKnights.Scripts.CleanArchitecture.InterfaceAdapter.InGame
                 .AddTo(disposables);
 
             enemy.OnGoalReached
-                .Subscribe(_ => 
+                .Subscribe(_ =>
                 {
                     baseStatusUseCase.TakeDamage(1);
                     enemy.TakeDamage(enemy.Stats.MaxHp * 10.0f);
                 })
                 .AddTo(disposables);
+
         }
 
         public void Dispose()

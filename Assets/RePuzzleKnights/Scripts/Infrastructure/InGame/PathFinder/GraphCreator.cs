@@ -74,8 +74,15 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.PathFinder
                         block = new HighGroundBlock(name, position);
                         break;
 
+                    case "NOPLACE_BLOCK":
+                        block = new NonPlaceableBlock(name, position);
+                        break;
+
+                    case "PITFALL_BLOCK":
+                        block = new PitfallBlock(name, position);
+                        break;
+
                     default:
-                        Debug.LogError($"GraphCreator: GameObject '{name}' には未処理のタグ '{blockObj.tag}' が付いています。");
                         continue;
                 }
 
@@ -144,9 +151,11 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.PathFinder
             for (int i = 0; i < blocksInGraph.Count; i++)
             {
                 var blockA = blocksInGraph[i];
+                if (blockA == null) continue;
                 for (int j = i + 1; j < blocksInGraph.Count; j++)
                 {
                     var blockB = blocksInGraph[j];
+                    if (blockB == null) continue;
                     float distanceSquared = (blockA.Position - blockB.Position).sqrMagnitude;
                     if (Mathf.Abs(distanceSquared - 1.0f) < threshold)
                     {
