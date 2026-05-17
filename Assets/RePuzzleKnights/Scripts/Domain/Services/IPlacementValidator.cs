@@ -14,11 +14,7 @@ namespace RePuzzleKnights.Scripts.Domain.Services
     {
         bool IsPositionOccupied(Vector3 position);
         bool IsTerrainValid(Vector3 position, string terrainTag, bool isHighGround); 
-        // Or "GetTerrainType(pos)"? 
-        // Legacy checks "CompareTag".
-        // UseCase shouldn't know "Tags" ideally.
-        // Controller parses Tag to "TerrainType".
-        // UseCase checks TerrainType vs UnitType.
+        GameObject GetAllyObjectAtPosition(Vector3 position);
     }
 }
 

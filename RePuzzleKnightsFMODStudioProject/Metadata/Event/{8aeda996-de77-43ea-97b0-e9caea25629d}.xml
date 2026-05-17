@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{8aeda996-de77-43ea-97b0-e9caea25629d}">
 		<property name="name">
 			<value>StageClearSE</value>

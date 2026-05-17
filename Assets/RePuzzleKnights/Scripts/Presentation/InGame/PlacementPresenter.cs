@@ -2,8 +2,10 @@ using System;
 using Cysharp.Threading.Tasks;
 using R3;
 using RePuzzleKnights.Scripts.Application.InGame;
+using RePuzzleKnights.Scripts.Domain.Entities;
 using RePuzzleKnights.Scripts.Domain.Enums;
 using RePuzzleKnights.Scripts.Infrastructure.InGame;
+using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.SO;
 using VContainer.Unity;
 
@@ -12,15 +14,21 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
     public class PlacementPresenter : IStartable, IDisposable
     {
         private readonly PlacementUseCase _useCase;
+        private readonly FusionUseCase _fusionUseCase;
         private readonly IPlacementView _view;
         private readonly AllyFactory _allyFactory;
         private readonly CompositeDisposable _disposables = new();
         
         private AllyDataSO _currentAllyData;
 
-        public PlacementPresenter(PlacementUseCase useCase, IPlacementView view, AllyFactory allyFactory)
+        public PlacementPresenter(
+            PlacementUseCase useCase,
+            FusionUseCase fusionUseCase,
+            IPlacementView view,
+            AllyFactory allyFactory)
         {
             this._useCase = useCase;
+            this._fusionUseCase = fusionUseCase;
             this._view = view;
             this._allyFactory = allyFactory;
         }
@@ -52,7 +60,11 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
             
             _useCase.OnPlacementConfirmed.Subscribe(payload =>
             {
-                if (_currentAllyData != null)
+                if (payload.targetAlly != null)
+                {
+                    ExecuteFusion(payload.targetAlly);
+                }
+                else if (_currentAllyData != null)
                 {
                     SpawnAllyAsync(_currentAllyData, payload.position, payload.rotation).Forget();
                 }
@@ -64,6 +76,20 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
                 _view.HidePreview();
                 _currentAllyData = null;
             }).AddTo(_disposables);
+        }
+
+        private void ExecuteFusion(UnityEngine.GameObject targetAllyObj)
+        {
+            var reference = targetAllyObj.GetComponentInParent<AllyReference>();
+            if (reference != null && _currentAllyData != null)
+            {
+                // ドラッグしていたユニットを一時的なAllyとして作成
+                var stats = _allyFactory.CreateStats(_currentAllyData);
+                var draggingAlly = new Ally("temp", stats);
+                
+                _fusionUseCase.PerformFusion(reference.Ally, draggingAlly);
+            }
+            _currentAllyData = null;
         }
         
         private async UniTaskVoid SpawnAllyAsync(AllyDataSO data, UnityEngine.Vector3 position, UnityEngine.Quaternion rotation)

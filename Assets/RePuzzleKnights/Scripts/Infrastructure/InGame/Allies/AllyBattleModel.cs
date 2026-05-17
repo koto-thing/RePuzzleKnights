@@ -10,6 +10,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
     public class AllyBattleModel
     {
         private readonly AllyDataSO _allyData;
+        public AllyDataSO AllyData => _allyData;
 
         public int EnemyLayerMask = LayerMask.GetMask("Default", "Enemy");
 

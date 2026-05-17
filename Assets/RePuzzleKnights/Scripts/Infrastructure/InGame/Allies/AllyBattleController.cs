@@ -16,6 +16,8 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
     public class AllyBattleController : IDisposable, IAllyEntity
     {
         private readonly AllyBattleModel _model;
+        public AllyBattleModel Model => _model;
+
         private readonly AllyDataSO _allyData;
         private readonly Transform _transform;
 
