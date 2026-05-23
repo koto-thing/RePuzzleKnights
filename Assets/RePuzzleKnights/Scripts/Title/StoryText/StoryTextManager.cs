@@ -40,6 +40,7 @@ public class StoryTextManager : MonoBehaviour
     // @param scenarioData シナリオデータ, currentIndex シナリオのインデックス
     public void UpdateText(ScenarioData scenarioData, int currentIndex)
     {
+        Debug.Log("currentSceneIndex: " + currentIndex);
         nextButton.gameObject.SetActive(currentIndex < scenarioData.scenes.Count);
         backButton.gameObject.SetActive(currentIndex != 0);
         NameText.text = scenarioData.scenes[currentIndex].name;
@@ -70,11 +71,10 @@ public class StoryTextManager : MonoBehaviour
         backButton.onClick
             .AddListener(() =>
             {
-                Debug.Log("ボタンが押されました");
-                
                 if (model.CurrentSceneIndex > 0)
                 {
-                    model.CurrentFilePathIndex--;
+                    Debug.Log("バックボタンが押されました");
+                    model.CurrentSceneIndex -= 2;
                     UpdateText(model.ScenarioData, model.CurrentSceneIndex++);
                 }
             });

@@ -31,7 +31,7 @@ public class ScenarioModel : ScriptableObject
         currentSceneIndex = 0;
         currentFilePathIndex = 0;
     }
-        
+    
     public void CheckScenarioEnd()
     {
         if (currentSceneIndex >= scenarioData.scenes.Count)
