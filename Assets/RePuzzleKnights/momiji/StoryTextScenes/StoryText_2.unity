@@ -1043,8 +1043,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -798, y: -245}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -630, y: -245}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1395078503
 MonoBehaviour:
@@ -1182,7 +1182,7 @@ MonoBehaviour:
   nextButton: {fileID: 1685560842}
   backButton: {fileID: 942563974}
   skipButton: {fileID: 262594322}
-  model: {fileID: 11400000, guid: 4bb97948c9c6f41dab83d364e1b6fb20, type: 2}
+  model: {fileID: 11400000, guid: 6908574963c626341b40b311962201eb, type: 2}
 --- !u!4 &1491487527
 Transform:
   m_ObjectHideFlags: 0

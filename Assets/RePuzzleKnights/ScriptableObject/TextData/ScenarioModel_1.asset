@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8173bd52e2a44f85a46930d00b1a095, type: 3}
-  m_Name: ScenarioModel
+  m_Name: ScenarioModel_1
   m_EditorClassIdentifier: RePuzzleKnights.Title::ScenarioModel
   filePath:
   - Scenario_1.json
