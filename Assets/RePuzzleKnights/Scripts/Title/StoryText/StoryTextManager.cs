@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,6 +16,7 @@ public class StoryTextManager : MonoBehaviour
     [Header("ボタン")] 
     [SerializeField] private Button nextButton; // テキストを進めるボタン
     [SerializeField] private Button backButton; // 一つ前に戻るボタン
+    [SerializeField] private Button skipButton; // テキストを最後までスキップするボタン
     
     [Header("依存関係")]
     [SerializeField] private ScenarioModel model;
@@ -43,6 +45,7 @@ public class StoryTextManager : MonoBehaviour
         Debug.Log("currentSceneIndex: " + currentIndex);
         nextButton.gameObject.SetActive(currentIndex < scenarioData.scenes.Count);
         backButton.gameObject.SetActive(currentIndex != 0);
+        skipButton.gameObject.SetActive(currentIndex < scenarioData.scenes.Count - 1);
         NameText.text = scenarioData.scenes[currentIndex].name;
         SentenceText.text = scenarioData.scenes[currentIndex].sentence;
 
@@ -53,7 +56,7 @@ public class StoryTextManager : MonoBehaviour
     // @brief イベント群の登録
     private void SubscribeEvents()
     {
-        // 会話ウィンドウの表示更新
+        // 会話ウィンドウの表示更新、テキストを次へ進める
         nextButton.onClick
             .AddListener(() =>
             {
@@ -68,6 +71,7 @@ public class StoryTextManager : MonoBehaviour
                 } 
             });
         
+        // 会話ウィンドウの表示更新、テキストを前に戻す
         backButton.onClick
             .AddListener(() =>
             {
@@ -78,6 +82,16 @@ public class StoryTextManager : MonoBehaviour
                     UpdateText(model.ScenarioData, model.CurrentSceneIndex++);
                 }
             });
+        
+        // 会話ウィンドウの表示更新、テキストを最後までスキップする
+        skipButton.onClick
+            .AddListener(() =>
+            {
+                if (model.CurrentSceneIndex < model.ScenarioData.scenes.Count)
+                {
+                    StartCoroutine(SkipText());
+                }
+            });
     }
 
     // @brief シナリオ読み込み
@@ -86,4 +100,15 @@ public class StoryTextManager : MonoBehaviour
         model.ScenarioData = storyTextLoader.LoadScenario(model.FilePath[model.CurrentFilePathIndex++]); // シナリオ読み込み
         UpdateText(model.ScenarioData, model.CurrentSceneIndex++);
     }
+
+    //　テキストスキップの演出、テキストを最後まで順に表示する
+    private IEnumerator SkipText()
+    {
+        while (model.CurrentSceneIndex < model.ScenarioData.scenes.Count)
+        {
+            UpdateText(model.ScenarioData, model.CurrentSceneIndex++);
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+    
 }
