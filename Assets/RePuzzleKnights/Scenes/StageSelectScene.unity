@@ -2600,30 +2600,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1329732456}
-  - component: {fileID: 1329732455}
+  - component: {fileID: 1329732457}
   m_Layer: 0
-  m_Name: LifetimeScope
+  m_Name: LocalLifetimeScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1329732455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1329732454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d5ab26b86da416db96a01edabcaed35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentReference:
-    TypeName: 
-  autoRun: 1
-  autoInjectGameObjects: []
 --- !u!4 &1329732456
 Transform:
   m_ObjectHideFlags: 0
@@ -2639,6 +2623,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1329732457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329732454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06fca1e57a2c8c0479a9a9a929febe4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: RePuzzleKnights.Scripts.Infrastructure.Common.RootLifetimeScope
+  autoRun: 1
+  autoInjectGameObjects: []
+  stageSelectData: {fileID: 11400000, guid: 897c52e54db03a340929856ec7127a2e, type: 2}
 --- !u!1 &1423700474
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,57 +2987,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446909389}
   m_CullTransparentMesh: 1
---- !u!1 &1503490311
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1503490313}
-  - component: {fileID: 1503490312}
-  m_Layer: 0
-  m_Name: ButtonController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1503490312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1503490311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca5caf3e0c014062a881421a47112542, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backButton: {fileID: 459750605}
-  stage0Button: {fileID: 621047086}
-  stage1Button: {fileID: 380271413}
-  stage2Button: {fileID: 257949633}
-  stage3Button: {fileID: 122061297}
-  stage4Button: {fileID: 1719449393}
-  stage5Button: {fileID: 418764994}
---- !u!4 &1503490313
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1503490311}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1630781878
 GameObject:
   m_ObjectHideFlags: 0
@@ -3182,7 +3132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1638246638}
-  - component: {fileID: 1638246637}
+  - component: {fileID: 1638246639}
+  - component: {fileID: 1638246640}
   m_Layer: 0
   m_Name: StageSelectController
   m_TagString: Untagged
@@ -3190,24 +3141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1638246637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638246636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1df3da1ebc804d108b39c1d7a64807c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageDescriptionPanel: {fileID: 11161872}
-  startButton: {fileID: 60494349}
-  backButton: {fileID: 1124093422}
-  stageTitleText: {fileID: 225334582}
-  stageDescriptionText: {fileID: 1671867529}
-  stageImage: {fileID: 1790211929}
 --- !u!4 &1638246638
 Transform:
   m_ObjectHideFlags: 0
@@ -3223,6 +3156,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1638246639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638246636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77cc24b2fe908ac4da29e095ece4de5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backToTitleButton: {fileID: 459750605}
+  stageButtons:
+  - {fileID: 621047086}
+  - {fileID: 380271413}
+  - {fileID: 257949633}
+  - {fileID: 122061297}
+  - {fileID: 1719449393}
+  - {fileID: 418764994}
+  scrollController: {fileID: 1638246640}
+  stageDescriptionPanel: {fileID: 11161872}
+  startButton: {fileID: 60494349}
+  backButton: {fileID: 1124093422}
+  stageTitleText: {fileID: 225334582}
+  stageDescriptionText: {fileID: 1671867529}
+  stageImage: {fileID: 1790211929}
+--- !u!114 &1638246640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638246636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43630e02a2e246b3862cd2067d703f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollTarget: {fileID: 752619282}
+  scrollSpeed: 300
+  edgeThreshold: 0.1
+  scrollAxis: {x: 0, y: 1, z: 0}
+  minPosition: -950
+  maxPosition: 0
 --- !u!1 &1658725444
 GameObject:
   m_ObjectHideFlags: 0
@@ -3791,8 +3769,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 560, y: -50}
+  m_SizeDelta: {x: 600, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1913958272
 GameObject:
@@ -3939,7 +3917,6 @@ SceneRoots:
   - {fileID: 624198805}
   - {fileID: 232673907}
   - {fileID: 1658725448}
-  - {fileID: 644938465}
   - {fileID: 1329732456}
-  - {fileID: 1503490313}
   - {fileID: 1638246638}
+  - {fileID: 644938465}

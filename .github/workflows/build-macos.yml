@@ -1,0 +1,39 @@
+name: Build for macOS
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        target: [aarch64-apple-darwin, x86_64-apple-darwin]
+        include:
+          - target: aarch64-apple-darwin
+            name: ARM64 (Apple Silicon)
+          - target: x86_64-apple-darwin
+            name: Intel x86_64
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Rust (${{ matrix.name }})
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+          override: true
+      
+      - name: Build (${{ matrix.name }})
+        working-directory: ./NativePlugin/native_pathfinder
+        run: cargo build --release --target ${{ matrix.target }}
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libnative_pathfinder-${{ matrix.target }}
+          path: NativePlugin/native_pathfinder/target/${{ matrix.target }}/release/libnative_pathfinder.dylib
+
