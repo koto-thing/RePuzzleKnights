@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{40a545cf-eca6-4e83-999a-2eb7d2d2e058}">
 		<property name="name">
-			<value>Towards_the_light</value>
+			<value>Towards the Light</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
@@ -189,11 +189,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{4601685a-99eb-434c-96d8-f09261fdcbf9}" />
 	<object class="MixerBusFader" id="{07b7e1fd-cae8-4c4d-b6eb-cc7c12888069}" />
-	<object class="SpatialiserEffect" id="{0f3679df-83fc-4a4b-8b1c-9a14630e1485}">
-		<property name="bypass">
-			<value>true</value>
-		</property>
-	</object>
+	<object class="SpatialiserEffect" id="{0f3679df-83fc-4a4b-8b1c-9a14630e1485}" />
 	<object class="MixerBusFader" id="{d9f51a14-49ed-42d6-993a-c8343ac43bb9}" />
 	<object class="MixerBusFader" id="{168f4560-e1f4-4314-929a-0300afd0a729}" />
 </objects>

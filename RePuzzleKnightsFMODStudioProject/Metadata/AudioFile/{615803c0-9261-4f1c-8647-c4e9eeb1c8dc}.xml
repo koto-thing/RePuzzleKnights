@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{615803c0-9261-4f1c-8647-c4e9eeb1c8dc}">
+		<property name="assetPath">
+			<value>The_Dawn_of_the_Journey.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>131.61292517006802</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d2d62077-23ac-47d6-a8aa-14ddfa2e91c4}</destination>
+		</relationship>
+	</object>
+</objects>
