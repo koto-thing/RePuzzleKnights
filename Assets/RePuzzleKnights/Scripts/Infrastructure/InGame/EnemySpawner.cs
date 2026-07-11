@@ -24,6 +24,12 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
         private readonly ReactiveProperty<int> _activeEnemyCount = new(0);
         public ReadOnlyReactiveProperty<int> ActiveEnemyCount => _activeEnemyCount;
 
+        private readonly ReactiveProperty<int> _defeatedEnemyCount = new(0);
+        public ReadOnlyReactiveProperty<int> DefeatedEnemyCount => _defeatedEnemyCount;
+
+        private int _totalEnemyCount;
+        public int TotalEnemyCount => _totalEnemyCount;
+
         [Inject]
         public void Construct(EnemyFactory factory)
         {
@@ -33,6 +39,25 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
 
         private void Start()
         {
+            _totalEnemyCount = 0;
+            if (waves != null)
+            {
+                foreach (var wave in waves)
+                {
+                    if (wave == null || wave.SpawnEntries == null) continue;
+                    foreach (var entry in wave.SpawnEntries)
+                    {
+                        if (entry == null) continue;
+                        _totalEnemyCount += entry.Count;
+                    }
+                }
+            }
+
+            if (spawnPoint != null && _enemyFactory != null)
+            {
+                _enemyFactory.PreviewPaths(spawnPoint.position);
+            }
+
             StartAllWaves(this.GetCancellationTokenOnDestroy()).Forget();
         }
 
@@ -115,13 +140,15 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
         public void NotifyEnemyDefeated()
         {
             _activeEnemyCount.Value = Mathf.Max(0, _activeEnemyCount.Value - 1);
-            Debug.Log($"[EnemySpawner] Enemy defeated. Active enemies: {_activeEnemyCount.Value}");
+            _defeatedEnemyCount.Value++;
+            Debug.Log($"[EnemySpawner] Enemy defeated. Active enemies: {_activeEnemyCount.Value}, Defeated: {_defeatedEnemyCount.Value}");
         }
-
+ 
         private void OnDestroy()
         {
             _isAllWavesFinished?.Dispose();
             _activeEnemyCount?.Dispose();
+            _defeatedEnemyCount?.Dispose();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using RePuzzleKnights.Scripts.Application.InGame;
+using RePuzzleKnights.Scripts.Application.InGame;
 using RePuzzleKnights.Scripts.Domain.Entities;
 using RePuzzleKnights.Scripts.Domain.Repositories;
 using RePuzzleKnights.Scripts.Domain.Services;
@@ -7,6 +7,8 @@ using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.GameFlowSystem;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.PathFinder;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Placement;
+using RePuzzleKnights.Scripts.Infrastructure.InGame.Soul;
+using RePuzzleKnights.Scripts.Infrastructure.InGame.UI;
 using RePuzzleKnights.Scripts.Presentation.InGame;
 using UnityEngine;
 using VContainer;
@@ -28,6 +30,20 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             builder.Register<StageProgressService>(Lifetime.Singleton);
             builder.Register<CurrentStageService>(Lifetime.Singleton);
             
+            // Soulシステム
+            builder.Register<SoulWallet>(Lifetime.Singleton)
+                .WithParameter("initialSoul", 10)
+                .WithParameter("maxSoul", 999);
+            builder.Register<SoulUseCase>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<SoulPresenter>();
+            builder.RegisterComponentInHierarchy<SoulCostView>().As<ISoulCostView>();
+            builder.RegisterComponentInHierarchy<SoulSpawner>();
+            
+            // 倍速システム
+            builder.Register<GameSpeedUseCase>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<GameSpeedPresenter>();
+            builder.RegisterComponentInHierarchy<SpeedButtonView>().As<ISpeedButtonView>();
+            
             // Clean Architecture Registrations
             builder.Register<StageDataRepository>(Lifetime.Singleton).As<IStageRepository>();
             builder.Register<GameFlowUseCase>(Lifetime.Singleton);
@@ -39,6 +55,10 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
 
             builder.Register<FusionUseCase>(Lifetime.Singleton);
             builder.Register<AllyFactory>(Lifetime.Singleton);
+
+            // キャラクター詳細パネル
+            builder.RegisterComponentInHierarchy<AllyDetailPanelView>().As<IAllyDetailPanelView>();
+            builder.Register<AllyDetailPresenter>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
             // 経路探索システム
             builder.Register<NativePathFinder>(Lifetime.Singleton).As<IPathFinderService>();

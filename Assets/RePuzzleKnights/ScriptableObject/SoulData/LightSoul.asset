@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LightSoul
   m_EditorClassIdentifier: 
   AllyName: LightSoul
-  AllyType: 0
+  AllyType: 1
   Element: 4
   PrefabRef:
     m_AssetGUID: ad443f297cd7b834e81bdd8110cf881c
@@ -21,6 +21,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  PlacementCost: 5
   MaxHp: 50
   AttackPower: 5
   AttackRange: 2

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyName: Test01
   Rank: 0
+  Element: 0
   PrefabRef:
     m_AssetGUID: 213940b29f8fbed499ad3d73d0c06172
     m_SubObjectName: 
@@ -21,7 +22,7 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   MaxHp: 100
-  MoveSpeed: 1
+  MoveSpeed: 0.1
   MoveType: 0
   IgnoreTerrain: 0
   AttackPower: 10

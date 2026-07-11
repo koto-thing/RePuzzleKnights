@@ -10,6 +10,9 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         public AllyStats Stats { get; private set; }
         public FusionState FusionState { get; }
 
+        public Observable<AllyStats> OnStatsUpdated => _onStatsUpdated;
+        private readonly Subject<AllyStats> _onStatsUpdated = new();
+
         public ReadOnlyReactiveProperty<float> CurrentHp => currentHp;
         private readonly ReactiveProperty<float> currentHp;
 
@@ -33,9 +36,10 @@ namespace RePuzzleKnights.Scripts.Domain.Entities
         public void UpdateStats(AllyStats newStats)
         {
             Stats = newStats;
-            // HPを割合で調整（最大HPが増えた場合など）
-            float hpRatio = currentHp.Value / Stats.MaxHp;
-            // ... ここは必要に応じて実装
+            // 最大HPの増加に合わせて現在HPをフル回復させる
+            currentHp.Value = Stats.MaxHp;
+            
+            _onStatsUpdated.OnNext(Stats);
         }
 
         /// <summary>

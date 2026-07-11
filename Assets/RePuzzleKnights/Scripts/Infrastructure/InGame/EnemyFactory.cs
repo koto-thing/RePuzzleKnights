@@ -39,6 +39,33 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             _onEnemyDefeated = callback;
         }
 
+        public void PreviewPaths(Vector3 spawnPosition)
+        {
+            if (_graphCreator == null || _graphCreator.CreatedGraph == null || _graphCreator.GoalBlockNames.Count == 0) 
+                return;
+            
+            var startName = _graphCreator.GetNearestBlockName(spawnPosition);
+            if (string.IsNullOrEmpty(startName)) 
+                return;
+
+            foreach (var goalName in _graphCreator.GoalBlockNames)
+            {
+                var pathNodeNames = _findPathUseCase.Execute(startName, goalName);
+                if (pathNodeNames == null || pathNodeNames.Count == 0) 
+                    continue;
+
+                var vectorPath = new List<Vector3>();
+                foreach (var nodeName in pathNodeNames)
+                {
+                    var block = _graphCreator.CreatedGraph.GetBlock(nodeName);
+                    if (block == null) continue;
+                    vectorPath.Add(block.Position + new Vector3(0, 0.5f, 0));
+                }
+
+                RePuzzleKnights.Scripts.Infrastructure.InGame.UI.PathPreviewRenderer.Create(vectorPath);
+            }
+        }
+
         public async UniTask<Enemy> CreateEnemyAsync(EnemyDataSO data, Vector3 spawnPosition = default)
         {
             if (data == null || data.PrefabRef == null) return null;

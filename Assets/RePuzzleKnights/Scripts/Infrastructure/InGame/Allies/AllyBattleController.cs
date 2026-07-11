@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using R3;
+using RePuzzleKnights.Scripts.Domain.Entities;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.Enum;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.Interface;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.SO;
@@ -55,6 +56,11 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
             _onDeathCallback = onDeath;
         }
 
+        public void UpdateStats(AllyStats newStats)
+        {
+            _model.UpdateStats(newStats);
+        }
+ 
         /// <summary>
         /// 毎フレーム更新
         /// </summary>
@@ -62,6 +68,8 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
         {
             if (_model.IsDead.CurrentValue)
                 return;
+
+            _model.ApplyRegen(deltaTime);
             
             int beforeBlockedCount = _model.BlockedEnemies.CurrentValue.Count;
             _model.UpdateAttackTimer(deltaTime);
@@ -76,8 +84,8 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
 
             var nearbyEnemies = ScanNearbyEnemies();
             UpdateSightList(nearbyEnemies);
-
-            if (_allyData.AllyType == AllyType.Ground)
+ 
+            if (_allyData.AllyType == Enum.AllyType.Ground)
             {
                 HandleBlocking(nearbyEnemies);
             }
@@ -292,17 +300,17 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
 
             switch (_allyData.RangeType)
             {
-                case AttackRangeType.SINGLE_TARGET:
+                case SO.AttackRangeType.SINGLE_TARGET:
                     targets.Add(primaryTarget);
                     break;
                 
-                case AttackRangeType.SPLASH_AROUND_TARGET:
+                case SO.AttackRangeType.SPLASH_AROUND_TARGET:
                     targets.Add(primaryTarget);
                     var splashEnemies = ScanSplashTargets(primaryTarget);
                     targets.AddRange(splashEnemies);
                     break;
                 
-                case AttackRangeType.FULL_RANGE_AREA:
+                case SO.AttackRangeType.FULL_RANGE_AREA:
                     var allEnemies = _model.GetAllTargets();
                     if (allEnemies != null)
                     {

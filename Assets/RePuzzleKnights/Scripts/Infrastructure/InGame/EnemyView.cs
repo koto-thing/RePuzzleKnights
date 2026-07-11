@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Rendering;
+using RePuzzleKnights.Scripts.Infrastructure.InGame.UI;
 using RePuzzleKnights.Scripts.Presentation.InGame;
 using UnityEngine;
 using VContainer;
@@ -15,16 +16,30 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private float scaleMultiplier = 1.3f;
-
+ 
         [SerializeField] private DissolveEffect dissolveEffect;
         [SerializeField] private Collider enemyCollider;
-
+ 
         private Sequence _moveSequence;
-
+        private float _currentSpeedMultiplier = 1.0f; // 追加
+ 
         [Inject]
         public void Construct(EnemyController controller)
         {
             this._controller = controller;
+        }
+
+        public void SetSpeedMultiplier(float multiplier)
+        {
+            _currentSpeedMultiplier = multiplier;
+            if (_moveSequence != null)
+            {
+                _moveSequence.timeScale = multiplier;
+            }
+            if (animator != null)
+            {
+                animator.speed = multiplier;
+            }
         }
 
         private void Update()
@@ -59,8 +74,9 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             }
 
             float duration = distance / speed;
-
+ 
             _moveSequence = DOTween.Sequence();
+            _moveSequence.timeScale = _currentSpeedMultiplier;
             
             var moveTween = transform.DOMove(target, duration).SetEase(Ease.Linear);
             
@@ -88,7 +104,8 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
         
         private EnemyStatusView _cachedStatusView;
         private bool _maxHpInitialized = false;
-
+        private float _lastHp = -1f;
+ 
         public void UpdateHp(float current, float max)
         {
              if (_cachedStatusView == null)
@@ -100,9 +117,20 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
                  {
                      _cachedStatusView.SetMaxHp(max);
                      _maxHpInitialized = true;
+                     _lastHp = current;
                  }
                  _cachedStatusView.UpdateHp(current);
              }
+
+             if (_lastHp >= 0f && current < _lastHp)
+             {
+                 float damageDiff = _lastHp - current;
+                 if (damageDiff >= 0.5f)
+                 {
+                     FloatingText.Create(transform.position + Vector3.up * 1.5f, Mathf.RoundToInt(damageDiff).ToString(), Color.red);
+                 }
+             }
+             _lastHp = current;
         }
 
         public void PlayDamageEffect()

@@ -24,6 +24,7 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
         private readonly AllyFactory _allyFactory;
         private readonly IPlacementView _view;
         private readonly PlacementPresenter _presenter;
+        private readonly SoulUseCase _soulUseCase;
         
         private readonly LayerMask _placementLayerMask = LayerMask.GetMask("Ground", "HighGround");
 
@@ -34,7 +35,8 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
             IPlacementValidator validator,
             AllyFactory allyFactory,
             IPlacementView view,
-            PlacementPresenter presenter)
+            PlacementPresenter presenter,
+            SoulUseCase soulUseCase)
         {
             this._useCase = useCase;
             this._fusionUseCase = fusionUseCase;
@@ -43,12 +45,19 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
             this._allyFactory = allyFactory;
             this._view = view;
             this._presenter = presenter;
+            this._soulUseCase = soulUseCase;
         }
 
         public void StartPlacement(AllyDataSO data)
         {
             if (data == null) 
                 return;
+
+            if (!_soulUseCase.CanConsumeSoul(data.Element, 1))
+            {
+                Debug.LogWarning($"[PlacementController] Not enough Soul to place {data.AllyName}. Required: 1 {data.Element}, Current: {_soulUseCase.GetSoulCount(data.Element).CurrentValue}");
+                return;
+            }
             
             _view.SetPreviewPrefab(data.PrefabRef);
             _presenter.SetCurrentAllyData(data);
@@ -106,6 +115,13 @@ namespace RePuzzleKnights.Scripts.Presentation.InGame
                          // ドラッグ中のユニットは常にレベル1として扱う
                          var draggingAlly = new Ally("temp", allyStats); 
                          isFusionPossible = _fusionUseCase.CanFuse(reference.Ally, draggingAlly);
+
+                         // 最終進化済みのキャラクターは融合不可 → 占有マスとして扱い配置不可にする
+                         if (reference.Ally.FusionState.IsEvolved)
+                         {
+                             isFusionPossible = false;
+                             targetAllyObj = null; // 配置先として無効扱い（赤表示）
+                         }
                      }
                  }
                  

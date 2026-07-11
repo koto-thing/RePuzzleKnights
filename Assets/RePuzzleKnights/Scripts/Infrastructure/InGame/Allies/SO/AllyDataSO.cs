@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using RePuzzleKnights.Scripts.Domain.Enums;
 using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.Enum;
 using UnityEngine;
@@ -28,6 +28,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies.SO
         public AllyType AllyType;
         public ElementType Element;
         public AssetReferenceGameObject PrefabRef;
+        public int PlacementCost = 5;
 
         [Header("戦闘ステータス")] 
         public float MaxHp = 100.0f;

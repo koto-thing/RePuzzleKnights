@@ -12,6 +12,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
         Vector3 Position { get; }
         
         void TakeDamage(float damage);
+        void ApplyStatusEffect(StatusEffectType type, float duration, float value);
         void FallIntoPitfall();
         void OnBlocked(IAllyEntity blocker);
         void OnReleased();

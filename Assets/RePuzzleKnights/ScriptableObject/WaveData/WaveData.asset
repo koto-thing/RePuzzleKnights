@@ -20,7 +20,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Count: 5
+    Count: 1
     Interval: 3
     InitialDelay: 5
   - EnemyDataSO: {fileID: 11400000, guid: 7dfd4f05019bf4df1ab466a1b87c6759, type: 2}
@@ -30,7 +30,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Count: 5
+    Count: 1
     Interval: 3
     InitialDelay: 10
   - EnemyDataSO: {fileID: 11400000, guid: 7dfd4f05019bf4df1ab466a1b87c6759, type: 2}
@@ -40,7 +40,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Count: 5
+    Count: 1
     Interval: 3
     InitialDelay: 10
   - EnemyDataSO: {fileID: 11400000, guid: b81116ca691149d488dc3e8e9fe7f2d5, type: 2}
@@ -50,6 +50,16 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    Count: 5
+    Count: 1
     Interval: 3
     InitialDelay: 10
+  - EnemyDataSO: {fileID: 11400000, guid: b78d65599a8c2ad4fb8071207269f992, type: 2}
+    EnemyPrefabRef:
+      m_AssetGUID: c85ada832dfd3104f83d462d7836739e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    Count: 3
+    Interval: 2
+    InitialDelay: 12

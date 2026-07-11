@@ -28,21 +28,26 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
         private AllyBattleModel _model;
         private AllyPresenter _domainPresenter;
         private CompositeDisposable _disposables = new();
+        private GameObject _regenEffectObj;
+        private bool _isSpawningRegen = false;
 
         // DI Dependencies
         private FusionUseCase _fusionUseCase;
         private AllyFactory _allyFactory;
         private AddressableAllyDataRepository _allyDataRepository;
+        private AllyDetailPresenter _detailPresenter;
 
         [Inject]
         public void Construct(
             FusionUseCase fusionUseCase, 
             AllyFactory allyFactory,
-            AddressableAllyDataRepository allyDataRepository)
+            AddressableAllyDataRepository allyDataRepository,
+            AllyDetailPresenter detailPresenter)
         {
             this._fusionUseCase = fusionUseCase;
             this._allyFactory = allyFactory;
             this._allyDataRepository = allyDataRepository;
+            this._detailPresenter = detailPresenter;
         }
 
         /// <summary>
@@ -81,6 +86,13 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
 
             // イベント購読
             SubscribeEvents();
+
+            // 初期リジェネチェック
+            var reference = GetComponent<AllyReference>();
+            if (reference != null && reference.Ally != null)
+            {
+                UpdateRegenEffect(reference.Ally.Stats.SelfRegenPercent);
+            }
         }
 
         /// <summary>
@@ -88,6 +100,26 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
         /// </summary>
         private void SubscribeEvents()
         {
+            var reference = GetComponent<AllyReference>();
+            if (reference != null && reference.Ally != null)
+            {
+                reference.Ally.OnStatsUpdated
+                    .Subscribe(newStats =>
+                    {
+                        _controller.UpdateStats(newStats);
+                        if (animController != null)
+                        {
+                            animController.SetAttackSpeed(newStats.AttackInterval);
+                        }
+                        if (view != null)
+                        {
+                            view.UpdateHpBar(newStats.MaxHp, newStats.MaxHp);
+                        }
+                        UpdateRegenEffect(newStats.SelfRegenPercent);
+                    })
+                    .AddTo(_disposables);
+            }
+
             // 攻撃リクエスト時にViewを更新
             _controller.GetAttackRequestObservable()
                 .Subscribe(targets =>
@@ -126,7 +158,7 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
             });
             
             // ドメインPresenterの初期化（進化ロジックなどを担当）
-            var reference = GetComponent<AllyReference>();
+            reference = GetComponent<AllyReference>();
             if (reference != null && reference.Ally != null)
             {
                 _domainPresenter = new AllyPresenter(
@@ -137,6 +169,10 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
                     _allyDataRepository, 
                     gameObject);
                 _domainPresenter.Initialize();
+
+                // 詳細パネルへのクリック購読を登録
+                if (_detailPresenter != null && view != null)
+                    _detailPresenter.RegisterAlly(view, reference.Ally);
             }
         }
         
@@ -154,6 +190,53 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
         private void Update()
         {
             _controller?.Tick(Time.deltaTime);
+        }
+
+        private void UpdateRegenEffect(float regenPercent)
+        {
+            bool hasRegen = regenPercent > 0f;
+            if (hasRegen)
+            {
+                if (_regenEffectObj == null && !_isSpawningRegen)
+                {
+                    _isSpawningRegen = true;
+                    SpawnRegenVfxAsync().Forget();
+                }
+            }
+            else
+            {
+                if (_regenEffectObj != null)
+                {
+                    Destroy(_regenEffectObj);
+                    _regenEffectObj = null;
+                }
+            }
+        }
+
+        private async UniTaskVoid SpawnRegenVfxAsync()
+        {
+            try
+            {
+                var go = await UI.EffectVisualFactory.CreateRegenEffectAsync(transform);
+                var reference = GetComponent<AllyReference>();
+                bool hasRegen = reference != null && reference.Ally != null && reference.Ally.Stats.SelfRegenPercent > 0f;
+                if (hasRegen && this != null && gameObject != null)
+                {
+                    _regenEffectObj = go;
+                }
+                else
+                {
+                    Destroy(go);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"[AllyBattlePresenter] Regen VFX error: {ex.Message}");
+            }
+            finally
+            {
+                _isSpawningRegen = false;
+            }
         }
 
         private void OnDestroy()

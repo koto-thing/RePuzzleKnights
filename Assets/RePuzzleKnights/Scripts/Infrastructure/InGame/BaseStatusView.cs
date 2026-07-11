@@ -11,24 +11,33 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
     public class BaseStatusView : MonoBehaviour, IBaseStatusView
     {
         [SerializeField] private TextMeshProUGUI durabilityText;
+        [SerializeField] private TextMeshProUGUI enemyCountText;
         [SerializeField] private ParticleSystem destroyEffect;
         
         private BaseStatusController _controller;
-
+ 
         [Inject]
         public void Construct(BaseStatusController controller)
         {
             this._controller = controller;
         }
-
+ 
         public void UpdateDurability(int current, int max)
         {
             if (durabilityText != null)
             {
-                durabilityText.text = $"Base: {current}/{max}";
+                durabilityText.text = current.ToString();
             }
         }
 
+        public void UpdateEnemyCount(int defeated, int total)
+        {
+            if (enemyCountText != null)
+            {
+                enemyCountText.text = $"ENEMY  {defeated}/{total}";
+            }
+        }
+ 
         public void PlayDestroyEffect()
         {
             if (destroyEffect != null)

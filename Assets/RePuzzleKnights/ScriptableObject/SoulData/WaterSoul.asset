@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WaterSoul
   m_EditorClassIdentifier: 
   AllyName: WaterSoul
-  AllyType: 0
+  AllyType: 1
   Element: 2
   PrefabRef:
     m_AssetGUID: c1b9e94573ff6cc4e83ce09a77549e25
@@ -21,6 +21,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  PlacementCost: 5
   MaxHp: 50
   AttackPower: 5
   AttackRange: 2

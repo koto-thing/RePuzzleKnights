@@ -111,6 +111,61 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             
             var allyType = DomainAllyType.MELEE; 
             
+            var rangeGrids = new System.Collections.Generic.List<GridCoordinate>();
+            if (data.AttackRangeGrids != null)
+            {
+                foreach (var grid in data.AttackRangeGrids)
+                {
+                    rangeGrids.Add(new GridCoordinate(grid.x, grid.y));
+                }
+            }
+
+            StatusEffectType customEffectType = StatusEffectType.None;
+            float customEffectDuration = 0f;
+            float customEffectValue = 0f;
+            float customEffectProbability = 0f;
+            float selfRegenPercent = 0f;
+            float reflectDamagePercent = 0f;
+            float dodgeChance = 0f;
+            int maxTargets = 1;
+            bool isSplash = false;
+            int blockCount = data.BlockCount;
+
+            switch (data.Element)
+            {
+                case ElementType.Fire:
+                    customEffectType = StatusEffectType.Burn;
+                    customEffectDuration = 3f;
+                    customEffectValue = 10f; // 毎秒10ダメ
+                    customEffectProbability = 1f; // 確定
+                    break;
+                case ElementType.Water:
+                    customEffectType = StatusEffectType.Slow;
+                    customEffectDuration = 2f;
+                    customEffectValue = 0.3f; // 30%減速
+                    customEffectProbability = 1f; // 確定
+                    break;
+                case ElementType.Grass:
+                    blockCount = 1; // Lv1盾はブロック1
+                    selfRegenPercent = 0.01f; // 1%リジェネ
+                    reflectDamagePercent = 0.1f; // 10%反射
+                    break;
+                case ElementType.Light:
+                    customEffectType = StatusEffectType.Stun;
+                    customEffectDuration = 0.5f;
+                    customEffectProbability = 0.1f; // 10%スタン
+                    maxTargets = 1;
+                    break;
+                case ElementType.Dark:
+                    dodgeChance = 0.2f; // 20%物理回避
+                    customEffectType = StatusEffectType.DefDebuff;
+                    customEffectDuration = 3f;
+                    customEffectValue = 10f; // 防御力10低下
+                    customEffectProbability = 0.5f; // 50%付与
+                    blockCount = 1; // アサシンは常にブロック1
+                    break;
+            }
+            
             return new AllyStats(
                 data.AllyName,
                 placementType,
@@ -120,12 +175,22 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
                 data.AttackPower,
                 data.AttackRange,
                 data.AttackInterval,
-                data.BlockCount,
+                blockCount,
                 data.SearchRadius,
                 rType,
                 priority,
                 data.SplashRadius,
-                data.CanAttackFlying
+                data.CanAttackFlying,
+                rangeGrids,
+                customEffectType,
+                customEffectDuration,
+                customEffectValue,
+                customEffectProbability,
+                selfRegenPercent,
+                reflectDamagePercent,
+                dodgeChance,
+                maxTargets,
+                isSplash
             );
         }
         

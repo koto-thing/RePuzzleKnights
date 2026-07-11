@@ -6,6 +6,8 @@ namespace RePuzzleKnights.Scripts.Domain.Services
     {
         ReadOnlyReactiveProperty<bool> IsAllWavesFinished { get; }
         ReadOnlyReactiveProperty<int> ActiveEnemyCount { get; }
+        ReadOnlyReactiveProperty<int> DefeatedEnemyCount { get; }
+        int TotalEnemyCount { get; }
     }
 }
 

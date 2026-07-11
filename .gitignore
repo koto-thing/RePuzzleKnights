@@ -122,3 +122,6 @@ fmod_editor.log
 
 # Rust build artifacts
 /NativePlugin/native_pathfinder/target/*
+
+.idea
+.agents

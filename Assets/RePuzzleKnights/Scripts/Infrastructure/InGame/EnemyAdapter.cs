@@ -27,6 +27,19 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             _domainEnemy.TakeDamage(damage);
         }
 
+        public void ApplyStatusEffect(StatusEffectType type, float duration, float value)
+        {
+            if (_view is MonoBehaviour mono)
+            {
+                var sem = mono.GetComponent<StatusEffectManager>();
+                if (sem == null)
+                {
+                    sem = mono.gameObject.AddComponent<StatusEffectManager>();
+                }
+                sem.ApplyEffect(type, duration, value);
+            }
+        }
+
         public void FallIntoPitfall()
         {
             _domainEnemy.FallIntoPitfall();

@@ -22,7 +22,7 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   MaxHp: 100
-  MoveSpeed: 1
+  MoveSpeed: 0.3
   MoveType: 1
   IgnoreTerrain: 0
   AttackPower: 10

@@ -1,4 +1,6 @@
-﻿using RePuzzleKnights.Scripts.Presentation.InGame;
+using R3;
+using RePuzzleKnights.Scripts.Presentation.InGame;
+using RePuzzleKnights.Scripts.Infrastructure.InGame.UI;
 using UnityEngine;
 
 namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
@@ -13,6 +15,9 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
         [SerializeField] private AllyStatusView statusView; 
         [SerializeField] private Animator animator;
         
+        private readonly Subject<Unit> _onClicked = new();
+        public Observable<Unit> OnClicked => _onClicked;
+
         public Vector3 Position => transform.position;
         public Vector3 FacingDirection { get; private set; } = Vector3.forward;
 
@@ -104,6 +109,8 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
              if (animator) animator.SetTrigger("Die");
         }
 
+        private float _lastHp = -1f;
+
         public void UpdateHpBar(float current, float max)
         {
             if (statusView != null)
@@ -111,6 +118,34 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.Allies
                 statusView.SetMaxHp(max);
                 statusView.UpdateHp(current);
             }
+
+            if (_lastHp < 0f)
+            {
+                _lastHp = current;
+                return;
+            }
+
+            if (current < _lastHp)
+            {
+                float damageDiff = _lastHp - current;
+                if (damageDiff >= 0.5f)
+                {
+                    FloatingText.Create(transform.position + Vector3.up * 1.5f, Mathf.RoundToInt(damageDiff).ToString(), Color.red);
+                }
+            }
+            else if (current > _lastHp)
+            {
+                float healDiff = current - _lastHp;
+                if (healDiff >= 0.5f)
+                {
+                    FloatingText.Create(transform.position + Vector3.up * 1.5f, $"+{Mathf.RoundToInt(healDiff)}", Color.green);
+                }
+            }
+            _lastHp = current;
+        }
+        private void OnMouseDown()
+        {
+            _onClicked.OnNext(Unit.Default);
         }
     }
 }

@@ -14,7 +14,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: ce067cb6b05cd234a9b252ff3b0abc4d
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 1ae5146ae9a1233449771343a3b1b5ff
+    m_Address: BurnVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 234d4d96b1097cc469cb6c9a69228e83
+    m_Address: SlashVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70ae8070f9737ca4185847b5384a0525
+    m_Address: CandleSmokeVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 78b9ae4dcb927354487b4e89c3de650a
+    m_Address: RegenVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 837174239c01ba6428116fe1ca7fcba4
+    m_Address: SlowVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87901488143b75d4382c0c79e1a7af53
+    m_Address: AshVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3ecc29da3d4ce64fa1e39a8a5d67fd7
+    m_Address: StunVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c85ada832dfd3104f83d462d7836739e
+    m_Address: FlyingDrone
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 53382b1a598399340ae6f00faa05a7b2, type: 2}
   m_SchemaSet:

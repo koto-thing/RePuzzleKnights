@@ -30,6 +30,7 @@ namespace RePuzzleKnights.Scripts.Application.InGame
         public ReadOnlyReactiveProperty<bool> IsFusionMode => _isFusionMode;
 
         private GameObject _targetAllyObject;
+        public GameObject TargetAllyObject => _targetAllyObject;
         
         public Observable<(AllyStats stats, Vector3 position, Quaternion rotation, GameObject targetAlly)> OnPlacementConfirmed => _onPlacementConfirmed;
         private readonly Subject<(AllyStats, Vector3, Quaternion, GameObject)> _onPlacementConfirmed = new();
