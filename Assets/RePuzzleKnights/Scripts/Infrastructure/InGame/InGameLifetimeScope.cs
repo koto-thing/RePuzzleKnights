@@ -57,7 +57,11 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             builder.Register<AllyFactory>(Lifetime.Singleton);
 
             // キャラクター詳細パネル
-            builder.RegisterComponentInHierarchy<AllyDetailPanelView>().As<IAllyDetailPanelView>();
+            // シーンごとに手動で配置する必要がないよう、詳細パネルは実行時に生成する。
+            var detailPanelObject = new GameObject("AllyDetailPanelView");
+            detailPanelObject.transform.SetParent(transform, false);
+            var detailPanelView = detailPanelObject.AddComponent<AllyDetailPanelView>();
+            builder.RegisterComponent(detailPanelView).As<IAllyDetailPanelView>();
             builder.Register<AllyDetailPresenter>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
             // 経路探索システム

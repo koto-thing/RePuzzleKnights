@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using RePuzzleKnights.Scripts.Domain.Enums;
+using RePuzzleKnights.Scripts.Infrastructure.InGame.Allies;
 using RePuzzleKnights.Scripts.Presentation.InGame;
 using UnityEngine;
 using UnityEngine.UI;
@@ -80,6 +81,9 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.UI
             var pos = _panelRect.anchoredPosition;
             pos.x = Mathf.Lerp(pos.x, _targetX, Time.unscaledDeltaTime * ANIM_SPEED);
             _panelRect.anchoredPosition = pos;
+
+            if (Input.GetMouseButtonDown(0) && IsShown() && !IsPointerInsidePanel() && !IsPointerOverAlly())
+                _onBackdropClicked?.Invoke();
         }
 
         // ======================================
@@ -182,22 +186,6 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.UI
 
             canvasGO.AddComponent<GraphicRaycaster>();
 
-            // --- Backdrop (全画面透明ボタン) ---
-            var bdGO = new GameObject("Backdrop");
-            bdGO.transform.SetParent(canvasGO.transform, false);
-            var bdImg = bdGO.AddComponent<Image>();
-            bdImg.color         = new Color(0, 0, 0, 0.001f); // 完全透明だと当たらないので極小値
-            bdImg.raycastTarget = true;
-            var bdRect = bdGO.GetComponent<RectTransform>();
-            bdRect.anchorMin = Vector2.zero;
-            bdRect.anchorMax = Vector2.one;
-            bdRect.offsetMin = Vector2.zero;
-            bdRect.offsetMax = Vector2.zero;
-            var bdBtn = bdGO.AddComponent<Button>();
-            bdBtn.onClick.AddListener(() => _onBackdropClicked?.Invoke());
-            // Backdrop のビジュアルを空にする
-            bdBtn.transition = Selectable.Transition.None;
-
             // --- Panel Root ---
             var panelGO = new GameObject("Panel");
             panelGO.transform.SetParent(canvasGO.transform, false);
@@ -211,9 +199,9 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.UI
             _targetX = HIDDEN_X;
 
             _panelCG       = panelGO.AddComponent<CanvasGroup>();
-            _panelCG.blocksRaycasts = false; // Backdrop より上なのでレイキャストはパネル側で受けたい
+            _panelCG.blocksRaycasts = true;
 
-            // パネル上にボタンを置く（パネル内クリックはBackdropに貫通させない）
+            // パネル内クリックをワールドクリックとして扱わないためのレイキャスト面
             var panelBlocker = panelGO.AddComponent<Image>();
             panelBlocker.color = new Color(0, 0, 0, 0.001f);
             panelBlocker.raycastTarget = true;
@@ -315,6 +303,32 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame.UI
                 di.raycastTarget = false;
                 _historyDots.Add(di);
             }
+        }
+
+        private bool IsShown()
+        {
+            return _targetX > HIDDEN_X + 1f;
+        }
+
+        private bool IsPointerInsidePanel()
+        {
+            return _panelRect != null && RectTransformUtility.RectangleContainsScreenPoint(_panelRect, Input.mousePosition);
+        }
+
+        private static bool IsPointerOverAlly()
+        {
+            var mainCamera = Camera.main;
+            if (mainCamera == null)
+                return false;
+
+            var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            foreach (var hit in Physics.RaycastAll(ray, Mathf.Infinity))
+            {
+                if (hit.collider.GetComponentInParent<AllyView>() != null)
+                    return true;
+            }
+
+            return false;
         }
 
         // ======================================
