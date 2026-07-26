@@ -13,12 +13,14 @@ namespace RePuzzleKnights.Scripts.Infrastructure.StageSelect.Definitions
         [SerializeField] private string stageName;
         [SerializeField, TextArea] private string stageDescription;
         [SerializeField] private Sprite stageImage;
+        [SerializeField] private Sprite charaImage;
         [SerializeField] private AssetReference sceneRef;
         
         public int StageNumber => stageNumber;
         public string StageName => stageName;
         public string StageDescription => stageDescription;
         public Sprite Image => stageImage;
+        public Sprite Chara => charaImage;
         public AssetReference SceneRef => sceneRef;
     }
 }

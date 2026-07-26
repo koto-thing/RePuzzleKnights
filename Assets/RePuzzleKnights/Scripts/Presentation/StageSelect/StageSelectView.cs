@@ -27,6 +27,7 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
         [SerializeField] private TextMeshProUGUI stageTitleText;
         [SerializeField] private TextMeshProUGUI stageDescriptionText;
         [SerializeField] private Image stageImage;
+        [SerializeField] private Image characterImage;
         
         public Observable<Unit> OnBackToTitleButtonClicked => backToTitleButton.OnClickAsObservable();
 
@@ -95,7 +96,7 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
                 if (buttonIndex >= 0 && buttonIndex < stageButtons.Count)
                 {
                     bool isLocked = !stage.IsUnlocked;
-                    stageButtons[buttonIndex].interactable = !isLocked;
+                    stageButtons[buttonIndex].gameObject.SetActive(!isLocked);
                 }
                 else
                 {
@@ -104,7 +105,7 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
             }
         }
 
-        public void SetSelectedStage(Stage stage, Sprite image)
+        public void SetSelectedStage(Stage stage, Sprite image, Sprite chara)
         {
             if (stage == null)
             {
@@ -125,6 +126,13 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
                 stageImage.gameObject.SetActive(image != null);
                 if (image != null)
                     stageImage.sprite = image;
+            }
+            
+            if (characterImage != null)
+            {
+                characterImage.gameObject.SetActive(chara != null);
+                if (chara != null)
+                    characterImage.sprite = chara;
             }
         }
 

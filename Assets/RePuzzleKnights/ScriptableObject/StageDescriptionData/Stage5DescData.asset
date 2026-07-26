@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Stage5DescData
   m_EditorClassIdentifier: 
   stageNumber: 5
-  stageName: ' STAGE 5'
+  stageName: "\u539F\u521D\u306E\u796D\u58C7"
   stageDescription: STAGE 5
   stageImage: {fileID: 0}
+  charaImage: {fileID: 0}
   sceneRef:
     m_AssetGUID: 2fe4b344eb32c184691cb17f8d466dce
     m_SubObjectName: 
