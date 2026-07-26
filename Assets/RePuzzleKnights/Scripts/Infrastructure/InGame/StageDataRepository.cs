@@ -43,6 +43,13 @@ namespace RePuzzleKnights.Scripts.Infrastructure.InGame
             return null;
         }
         
+        public async UniTask<Sprite> GetCharaImageAsync(int stageNumber)
+        {
+            // TODO: Load character image from Addressables
+            await UniTask.CompletedTask;
+            return null;
+        }
+        
         public async UniTask<AssetReference> GetStageSceneRefAsync(int stageNumber)
         {
             // TODO: Load scene reference from stage data

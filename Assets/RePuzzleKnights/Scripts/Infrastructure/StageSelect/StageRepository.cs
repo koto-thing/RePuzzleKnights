@@ -98,6 +98,26 @@ namespace RePuzzleKnights.Scripts.Infrastructure.StageSelect
             
             return null;
         }
+        
+        public async UniTask<Sprite> GetCharaImageAsync(int stageNumber)
+        {
+            if (_config == null || _config.StageDescriptionDataRefs == null) 
+                return null;
+             
+            foreach(var refData in _config.StageDescriptionDataRefs)
+            {
+                if (refData != null && refData.RuntimeKeyIsValid())
+                {
+                    var data = await LoadStageData(refData);
+                    if (data != null && data.StageNumber == stageNumber)
+                    {
+                        return data.Chara;
+                    }
+                }
+            }
+            
+            return null;
+        }
 
         public async UniTask<AssetReference> GetStageSceneRefAsync(int stageNumber)
         {

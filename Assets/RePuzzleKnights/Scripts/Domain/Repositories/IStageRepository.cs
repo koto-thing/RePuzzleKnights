@@ -10,6 +10,7 @@ namespace RePuzzleKnights.Scripts.Domain.Repositories
         int GetCurrentStageNumber();
         UniTask<IEnumerable<Stage>> GetAllStagesAsync();
         UniTask<UnityEngine.Sprite> GetStageImageAsync(int stageNumber);
+        UniTask<UnityEngine.Sprite> GetCharaImageAsync(int stageNumber);
         UniTask<UnityEngine.AddressableAssets.AssetReference> GetStageSceneRefAsync(int stageNumber);
     }
 }

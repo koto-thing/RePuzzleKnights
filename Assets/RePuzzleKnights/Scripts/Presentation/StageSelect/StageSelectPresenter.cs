@@ -75,7 +75,8 @@ namespace RePuzzleKnights.Scripts.Presentation.StageSelect
                 .Subscribe(async stage =>
                 {
                     var sprite = await _repository.GetStageImageAsync(stage.Id);
-                    _view.SetSelectedStage(stage, sprite);
+                    var chara = await _repository.GetCharaImageAsync(stage.Id);
+                    _view.SetSelectedStage(stage, sprite, chara);
                 })
                 .AddTo(_disposables);
 
